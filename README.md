@@ -1,5 +1,23 @@
-# Vue 3 + TypeScript + Vite
+# What
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+Web app to quickly display upcoming high & low tide data from nearest NOAA tide stations.
 
-Learn more about the recommended Project Setup and IDE Support in the [Vue Docs TypeScript Guide](https://vuejs.org/guide/typescript/overview.html#project-setup).
+- Built with Vite + Vue on (deployment env TBD).
+- An SPA (Single Page App) reproduction
+  of https://github.com/just6979/tide-catcher-next / https://tide-catcher.justinwhite.net
+
+# Where
+
+Deployment TBD, perhaps directly from my site at [NearlyFreeSpeech.net](https://www.nearlyfreespeech.net)
+
+# How
+
+- Vue.js + Vite SPA
+- Client-side fetching of tide info directly from
+  [NOAA Tides & Currents](https://tidesandcurrents.noaa.gov/web_services_info.html) APIs.
+
+## TODO
+
+- Cache (client-side) recently used stations and tide data to minimize external data requests.
+- Offline mode: pull 7 days of data at a time, will only need internet when that data is stale.
+- Favorite stations: Keep a list of nearby stations.
