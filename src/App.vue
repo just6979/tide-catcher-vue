@@ -1,34 +1,59 @@
 <script setup lang="ts">
-import {RouterView} from "vue-router"
+import {RouterView} from 'vue-router'
 </script>
 
 <template>
   <header>
-    <RouterLink to="/">
-      <img src="/images/wave_left_64.png" alt="WaveLeft" />
+    <a href="/">
+      <img src="/images/wave_left_64.png" alt="WaveLeft"/>
       <h1>Tide Catcher</h1>
-    </RouterLink>
-  <nav>
-    <RouterLink to="/">Home</RouterLink>
-    &nbsp;
-    <RouterLink to="/about">About</RouterLink>
-  </nav>
+    </a>
+    <nav>
+      <RouterLink to="/">
+        <button>Home</button>
+      </RouterLink>
+      &nbsp;
+      <RouterLink to="/about">
+        <button>About</button>
+      </RouterLink>
+    </nav>
   </header>
-  <RouterView></RouterView>
+
+  <Suspense>
+    <RouterView></RouterView>
+  </Suspense>
+
+  <footer>
+    <p>(C) 2025 Justin White</p>
+  </footer>
 </template>
 
 <style scoped>
-a {
-  text-decoration: none;
+header {
+  margin: auto;
+  padding: 0;
+  border-bottom: dotted thin;
+}
+
+img {
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  margin: 0;
 }
 
 nav {
-  border-bottom: thin dotted;
-  padding: 1.5em;
+  padding: 0.5em;
 }
 
-nav a {
-  border: thin solid;
-  padding: 0.5em 1em
+nav button {
+  padding: 0.25em 1em;
+  border: dotted thin;
+}
+
+.active-route button {
+  border: solid thin;
 }
 </style>

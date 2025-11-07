@@ -13,6 +13,7 @@ export const router = createRouter({
     {path: '/about', component: About},
     {path: '/station/:id', component: Station, props: true},
   ],
+  linkActiveClass: 'active-route',
 })
 
 const app = createApp(App)
