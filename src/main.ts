@@ -6,6 +6,8 @@ import About from './components/About.vue'
 import Home from './components/Home.vue'
 import Station from './components/Station.vue'
 
+export const DEFAULT_STATION = '8441241'
+
 export const router = createRouter({
   history: createWebHistory(),
   routes: [
