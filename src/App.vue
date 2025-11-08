@@ -56,4 +56,8 @@ nav button {
 .active-route button {
   border: solid thin;
 }
+
+footer {
+  border-top: dotted thin;
+}
 </style>

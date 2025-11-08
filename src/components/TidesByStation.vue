@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {ref} from "vue"
 import {useRoute} from "vue-router"
-import {DEFAULT_STATION} from "../main.ts"
+import {DEFAULT_STATION} from "../constants.ts"
 import type {NoaaTidePrediction} from "../types.ts"
 
 const route = useRoute()
