@@ -1,27 +1,22 @@
 <script setup lang="ts">
-import {ref} from 'vue'
-import {useRoute} from 'vue-router'
-import {DEFAULT_STATION} from '../main.ts'
-
-interface NoaaTide {
-  t: string,
-  type: string,
-  v: number
-}
+import {ref} from "vue"
+import {useRoute} from "vue-router"
+import {DEFAULT_STATION} from "../main.ts"
+import type {NoaaTidePrediction} from "../types.ts"
 
 const route = useRoute()
 const stationId = ref(DEFAULT_STATION)
 const loading = ref(true)
-const tides = ref<NoaaTide[]>([])
+const tides = ref<NoaaTidePrediction[]>([])
 const error = ref("")
 
 stationId.value = route.params.id?.toString() || DEFAULT_STATION
 
 const now = new Date()
-const month = String(now.getMonth() + 1).padStart(2, '0')
-const day = String(now.getDate()).padStart(2, '0')
-const hours = String(now.getHours()).padStart(2, '0')
-const minutes = String(now.getMinutes()).padStart(2, '0')
+const month = String(now.getMonth() + 1).padStart(2, "0")
+const day = String(now.getDate()).padStart(2, "0")
+const hours = String(now.getHours()).padStart(2, "0")
+const minutes = String(now.getMinutes()).padStart(2, "0")
 const beginDate = encodeURI(`${now.getFullYear()}${month}${day} ${hours}:${minutes}`)
 const url = `https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?` +
     `&product=predictions&units=english&format=json` +
@@ -29,15 +24,16 @@ const url = `https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?` +
     `&time_zone=lst_ldt&begin_date=${beginDate}&range=72`
 
 try {
-  const response = await fetch(url)
-  const data = await response.json()
-  if ("error" in data) {
-    console.log(`Message: ${data["error"]["message"]}`)
-    console.log(`URL: ${url}`)
-    error.value = data["error"]["message"]
-  } else {
-    tides.value = data.predictions
-  }
+  fetch(url).then((res) => res.json().then((data: any) => {
+    if ("error" in data) {
+      console.log(`Message: ${data["error"]["message"]}`)
+      console.log(`URL: ${url}`)
+      error.value = data["error"]["message"]
+    } else {
+      tides.value = data["predictions"]
+    }
+
+  }))
 } catch (err: any) {
   console.log(`Error: ${err.toString()}`)
   console.log(`URL: ${url}`)
@@ -45,8 +41,6 @@ try {
 } finally {
   loading.value = false
 }
-
-
 </script>
 
 <template>
@@ -57,7 +51,7 @@ try {
     <table v-else>
       <tr v-for="item in tides">
         <td>{{ item.t }}</td>
-        <td>{{ item.type == 'H' ? 'High' : 'Low' }}</td>
+        <td>{{ item.type == "H" ? "High" : "Low" }}</td>
         <td>{{ item.v }}</td>
       </tr>
     </table>
