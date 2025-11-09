@@ -22,9 +22,9 @@ function fetchCoOpsStation(stationId: string) {
   fetch(url).then((res) => {
     res.json().then((data: NoaaCoOpsResponse | NoaaError) => {
       if (!("error" in data)) {
-        const station = data.stations[0]
-        if (station) {
-          location.value = [station.lat, station.lng]
+        const coOpsStation = data.stations[0]
+        if (coOpsStation) {
+          location.value = [coOpsStation.lat, coOpsStation.lng]
         }
 
       } else {
@@ -32,18 +32,15 @@ function fetchCoOpsStation(stationId: string) {
         console.log(`URL: ${url}`)
         error.value = data["error"]["message"]
       }
-      loading.value = false
     })
   }).catch((err: Error) => {
     let msg = `JSON Error: ${err}`
     console.log(msg)
     error.value = msg
-    loading.value = false
   }).catch((err: any) => {
     let msg = `Fetch Error: ${err.toString()}`
     console.log(msg)
     error.value = msg
-    loading.value = false
   })
 }
 
@@ -59,15 +56,18 @@ function fetchTidePredStation(location: [number, number]) {
         console.log(`URL: ${url}`)
         error.value = data["error"]["message"]
       }
+      loading.value = false
     }).catch((err: Error) => {
       let msg = `JSON Error: ${err}`
       console.log(msg)
       error.value = msg
+      loading.value = false
     })
   }).catch((err: any) => {
     let msg = `Fetch Error: ${err.toString()}`
     console.log(msg)
     error.value = msg
+    loading.value = false
   })
 }
 </script>
