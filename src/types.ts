@@ -1,3 +1,9 @@
+export interface NoaaError {
+  error: {
+    message: string;
+  }
+}
+
 export interface NoaaTidePredStation {
   stationId: string
   stationName: string
@@ -10,6 +16,10 @@ export interface NoaaTidePredStation {
   region: string
   timeZoneCorr: string
   distance: number
+}
+
+export interface NoaaTidePredResponse {
+  stationList: NoaaTidePredStation[]
 }
 
 export interface NoaaCoOpsStation {
