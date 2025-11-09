@@ -9,10 +9,12 @@ import {RouterView} from "vue-router"
       <h1>Tide Catcher</h1>
     </a>
     <nav>
-      <RouterLink to="/">
-        <button>Home</button>
+      <RouterLink to="/tides">
+        <button>Tides</button>
       </RouterLink>
-      &nbsp;
+      <RouterLink to="/stations">
+        <button>Stations</button>
+      </RouterLink>
       <RouterLink to="/about">
         <button>About</button>
       </RouterLink>
