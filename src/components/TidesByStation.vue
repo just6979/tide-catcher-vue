@@ -2,59 +2,73 @@
 import {ref} from "vue"
 import {useRoute} from "vue-router"
 import {DEFAULT_STATION} from "../constants.ts"
-import type {NoaaTidePrediction} from "../types.ts"
+import type {NoaaError, NoaaTidePrediction, NoaaTidesResponse} from "../types.ts"
 
 const route = useRoute()
-const stationId = ref(DEFAULT_STATION)
 const loading = ref(true)
-const tides = ref<NoaaTidePrediction[]>([])
-const error = ref("")
+const error = ref<string>()
+const tides = ref<NoaaTidePrediction[]>()
 
-stationId.value = route.params.id?.toString() || DEFAULT_STATION
+const stationId = route.params.id?.toString() || DEFAULT_STATION
 
-const now = new Date()
-const month = String(now.getMonth() + 1).padStart(2, "0")
-const day = String(now.getDate()).padStart(2, "0")
-const hours = String(now.getHours()).padStart(2, "0")
-const minutes = String(now.getMinutes()).padStart(2, "0")
-const beginDate = encodeURI(`${now.getFullYear()}${month}${day} ${hours}:${minutes}`)
-const url = `https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?` +
-    `&product=predictions&units=english&format=json` +
-    `&datum=MLLW&interval=hilo&station=${stationId.value}` +
-    `&time_zone=lst_ldt&begin_date=${beginDate}&range=72`
+fetchTides(stationId)
 
-try {
-  fetch(url).then((res) => res.json().then((data: any) => {
-    if ("error" in data) {
-      console.log(`Message: ${data["error"]["message"]}`)
-      console.log(`URL: ${url}`)
-      error.value = data["error"]["message"]
-    } else {
-      tides.value = data["predictions"]
-    }
+function fetchTides(stationId: string) {
+  const now = new Date()
+  const month = String(now.getMonth() + 1).padStart(2, "0")
+  const day = String(now.getDate()).padStart(2, "0")
+  const hours = String(now.getHours()).padStart(2, "0")
+  const minutes = String(now.getMinutes()).padStart(2, "0")
+  const beginDate = encodeURI(`${now.getFullYear()}${month}${day} ${hours}:${minutes}`)
+  const url = `https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?` +
+      `&product=predictions&units=english&format=json` +
+      `&datum=MLLW&interval=hilo&station=${stationId}` +
+      `&time_zone=lst_ldt&begin_date=${beginDate}&range=72`
 
-  }))
-} catch (err: any) {
-  console.log(`Error: ${err.toString()}`)
-  console.log(`URL: ${url}`)
-  error.value = err.toString()
-} finally {
-  loading.value = false
+  fetch(url).then((res) => {
+    res.json().then((data: NoaaTidesResponse | NoaaError) => {
+      if (!("error" in data)) {
+        tides.value = data.predictions
+      } else {
+        console.log(`Message: ${data.error.message}`)
+        console.log(`URL: ${url}`)
+        error.value = data.error.message
+      }
+      loading.value = false
+    }).catch((err: Error) => {
+      let msg = `JSON Error: ${err}`
+      console.log(msg)
+      error.value = msg
+      loading.value = false
+    })
+  }).catch((err: any) => {
+    let msg = `Fetch Error: ${err.toString()}`
+    console.log(msg)
+    error.value = msg
+    loading.value = false
+  })
 }
 </script>
 
 <template>
-  <div>
+  <div v-if="loading">
+    <p>Loading...</p>
+  </div>
+  <div v-else-if="error">
+    <p>{{ error }}</p>
+  </div>
+  <div v-else-if="tides">
     <h2>Station {{ stationId }}</h2>
-    <p v-if="loading">Loading...</p>
-    <p v-else-if="error">Error: {{ error }}</p>
-    <table v-else>
+    <table>
       <tr v-for="item in tides">
         <td>{{ item.t }}</td>
         <td>{{ item.type == "H" ? "High" : "Low" }}</td>
         <td>{{ item.v }}</td>
       </tr>
     </table>
+  </div>
+  <div v-else>
+    <p>No Tides found for {{ stationId }}.</p>
   </div>
 </template>
 

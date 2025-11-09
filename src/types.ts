@@ -31,8 +31,16 @@ export interface NoaaCoOpsStation {
   timezonecorr: number
 }
 
+export interface NoaaCoOpsResponse {
+  stations: NoaaCoOpsStation[]
+}
+
 export interface NoaaTidePrediction {
   t: string
   v: string
   type: string
+}
+
+export interface NoaaTidesResponse {
+  predictions: NoaaTidePrediction[]
 }

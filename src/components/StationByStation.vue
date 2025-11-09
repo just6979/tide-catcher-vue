@@ -1,70 +1,93 @@
 <script setup lang="ts">
-import {ref} from "vue"
+import {ref, watch} from "vue"
 import {useRoute} from "vue-router"
 import {DEFAULT_STATION} from "../constants.ts"
-import type {NoaaCoOpsStation, NoaaTidePredStation} from "../types.ts"
+import type {NoaaCoOpsResponse, NoaaError, NoaaTidePredResponse, NoaaTidePredStation} from "../types.ts"
 
 const route = useRoute()
-const stationId = route.params.id?.toString() || DEFAULT_STATION
-
-const station = ref<NoaaTidePredStation>()
 const loading = ref(true)
-const error = ref(null)
-let location: string
+const error = ref<string>()
+const location = ref<[number, number]>()
+const station = ref<NoaaTidePredStation>()
 
-function fetchTidePredStation(coOpsStation: NoaaCoOpsStation) {
-  try {
-    const url = `https://api.tidesandcurrents.noaa.gov/mdapi/prod/webapi/tidepredstations.json` +
-        `?lat=${coOpsStation.lat}&lon=${coOpsStation.lng}&radius=1`
-    fetch(url).then((res) => res.json().then((data: any) => {
-      if ("error" in data) {
+// fill in the location ref using the NOAA CO-OPS API
+fetchCoOpsStation(route.params.id?.toString() || DEFAULT_STATION)
+// uses the location ref to get the station details from the TidePredStations API
+watch(location, (newLocation) => {
+  if (newLocation) fetchTidePredStation(newLocation)
+})
+
+function fetchCoOpsStation(stationId: string) {
+  const url = `https://api.tidesandcurrents.noaa.gov/mdapi/prod/webapi/stations/${stationId}.json`
+  fetch(url).then((res) => {
+    res.json().then((data: NoaaCoOpsResponse | NoaaError) => {
+      if (!("error" in data)) {
+        const station = data.stations[0]
+        if (station) {
+          location.value = [station.lat, station.lng]
+        }
+
+      } else {
         console.log(`Message: ${data["error"]["message"]}`)
         console.log(`URL: ${url}`)
         error.value = data["error"]["message"]
-      } else {
-        const s = data["stationList"][0]
-        location = `${Number(s.lat).toFixed(5)},${Number(s.lon).toFixed(5)}`
-        console.log(s)
-        station.value = s
       }
-    }))
-  } catch (err: any) {
-    console.log(`Error: ${err.toString()}`)
-    error.value = err.toString()
-  }
+      loading.value = false
+    })
+  }).catch((err: Error) => {
+    let msg = `JSON Error: ${err}`
+    console.log(msg)
+    error.value = msg
+    loading.value = false
+  }).catch((err: any) => {
+    let msg = `Fetch Error: ${err.toString()}`
+    console.log(msg)
+    error.value = msg
+    loading.value = false
+  })
 }
 
-try {
-  const url = `https://api.tidesandcurrents.noaa.gov/mdapi/prod/webapi/stations/${stationId}.json`
-  fetch(url).then((res) => res.json().then((data: any) => {
-    if ("error" in data) {
-      console.log(`Message: ${data["error"]["message"]}`)
-      console.log(`URL: ${url}`)
-      error.value = data["error"]["message"]
-    } else {
-      fetchTidePredStation(data["stations"][0])
-    }
-  }))
-} catch (err: any) {
-  console.log(`Error: ${err.toString()}`)
-  error.value = err.toString()
-} finally {
-  loading.value = false
+function fetchTidePredStation(location: [number, number]) {
+  const url = `https://api.tidesandcurrents.noaa.gov/mdapi/prod/webapi/tidepredstations.json` +
+      `?lat=${location[0]}&lon=${location[1]}&radius=1`
+  fetch(url).then((res) => {
+    res.json().then((data: NoaaTidePredResponse | NoaaError) => {
+      if (!("error" in data)) {
+        station.value = data["stationList"][0]
+      } else {
+        console.log(`Message: ${data["error"]["message"]}`)
+        console.log(`URL: ${url}`)
+        error.value = data["error"]["message"]
+      }
+    }).catch((err: Error) => {
+      let msg = `JSON Error: ${err}`
+      console.log(msg)
+      error.value = msg
+    })
+  }).catch((err: any) => {
+    let msg = `Fetch Error: ${err.toString()}`
+    console.log(msg)
+    error.value = msg
+  })
 }
 </script>
 
 <template>
-  <div>
-    <h2>Station {{ stationId }}</h2>
-    <p v-if="loading">Loading...</p>
-    <p v-else-if="error">Error: {{ error }}</p>
-    <table v-else-if="station">
+  <div v-if="loading">
+    <p>Loading...</p>
+  </div>
+  <div v-else-if="error">
+    <p>Error: {{ error }}</p>
+  </div>
+  <div v-else-if="station">
+    <h2>Station {{ station.stationId }}</h2>
+    <table>
       <tbody>
       <tr>
         <td>NOAA ID</td>
         <td>
           <a
-              :href="`https://tidesandcurrents.noaa.gov/noaatidepredictions.html?id=${stationId}`"
+              :href="`https://tidesandcurrents.noaa.gov/noaatidepredictions.html?id=${station.stationId}`"
               target="_blank"
           >
             {{ station.stationId }}
@@ -78,10 +101,11 @@ try {
       <tr>
         <td>Location</td>
         <td>
-          <a :href="`https://www.google.com/maps/place/${station.lat},${station.lon}/@${station.lat},${station.lon},12z`"
-             target="_blank">
-            [{{ location }}]
-          </a>
+          [<a
+            :href="`https://www.google.com/maps/place/${station.lat},${station.lon}/@${station.lat},${station.lon},12z`"
+            target="_blank">
+          {{ `${station.lat.toFixed(5)}, ${station.lon.toFixed(5)}` }}
+        </a>]
         </td>
       </tr>
       <tr>
@@ -110,7 +134,9 @@ try {
       </tr>
       </tbody>
     </table>
-    <p v-else>No Station found for ID {{ stationId }}</p>
+  </div>
+  <div v-else>
+    <p>No Station found for ID {{ route.params.id }}</p>
   </div>
 </template>
 
@@ -133,7 +159,7 @@ tr {
   border-style: solid;
 }
 
-tr :first-child {
+tr td:first-child {
   width: 50%;
   border-width: thin;
   border-color: inherit;
