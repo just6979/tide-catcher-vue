@@ -38,12 +38,16 @@ jobs:
         with:
           node-version: "24"
       - name: Install deps
+        id: install
         run: |
-          npm ci
+          npm add pnpm
+          pnpm install
       - name: Build site
+        id: build
         run: |
-          npm run build
+          pnpm run build
       - name: Upload artifact
+        id: upload
         uses: actions/upload-pages-artifact@v3
         with:
           path: '.dist/'
