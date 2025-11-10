@@ -7,7 +7,7 @@ const error = ref<string>()
 const stations = ref<NoaaTidePredStation[]>()
 
 const url = "https://api.tidesandcurrents.noaa.gov/mdapi/prod/webapi/tidepredstations.json"
-fetch(url).then((res: any) => {
+fetch(url).then((res) => {
   res.json().then((data: NoaaTidePredResponse | NoaaError) => {
     if (!("error" in data)) {
       stations.value = data.stationList
@@ -23,13 +23,13 @@ fetch(url).then((res: any) => {
     }
     loading.value = false
   }).catch((err: Error) => {
-    let msg = `JSON Error: ${err}`
+    const msg = `JSON Error: ${err}`
     console.log(msg)
     error.value = msg
     loading.value = false
   })
-}).catch((err: any) => {
-  let msg = `Fetch Error: ${err.toString()}`
+}).catch((err) => {
+  const msg = `Fetch Error: ${err.toString()}`
   console.log(msg)
   error.value = msg
   loading.value = false
@@ -46,7 +46,7 @@ fetch(url).then((res: any) => {
   <div v-else-if="stations">
     <h2>Found {{ stations.length }} Stations</h2>
     <ul>
-      <li v-for="station in stations">
+      <li v-for="station in stations" :key="station.stationId">
         <RouterLink :to="`/station/id/${station.stationId}`">{{ station.stationId }}</RouterLink>:
         {{ station.commonName }}, {{ station.state }}
       </li>

@@ -66,10 +66,4 @@ ul {
 #coming-soon {
   border-top: dotted thin;
 }
-
-#coming-soon .todo-done {
-  text-decoration: line-through;
-}
-
-
 </style>

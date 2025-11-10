@@ -34,11 +34,11 @@ function fetchCoOpsStation(stationId: string) {
       }
     })
   }).catch((err: Error) => {
-    let msg = `JSON Error: ${err}`
+    const msg = `JSON Error: ${err}`
     console.log(msg)
     error.value = msg
-  }).catch((err: any) => {
-    let msg = `Fetch Error: ${err.toString()}`
+  }).catch((err) => {
+    const msg = `Fetch Error: ${err.toString()}`
     console.log(msg)
     error.value = msg
   })
@@ -58,13 +58,13 @@ function fetchTidePredStation(location: [number, number]) {
       }
       loading.value = false
     }).catch((err: Error) => {
-      let msg = `JSON Error: ${err}`
+      const msg = `JSON Error: ${err}`
       console.log(msg)
       error.value = msg
       loading.value = false
     })
-  }).catch((err: any) => {
-    let msg = `Fetch Error: ${err.toString()}`
+  }).catch((err) => {
+    const msg = `Fetch Error: ${err.toString()}`
     console.log(msg)
     error.value = msg
     loading.value = false

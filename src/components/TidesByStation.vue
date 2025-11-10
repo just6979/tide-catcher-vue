@@ -36,13 +36,13 @@ function fetchTides(stationId: string) {
       }
       loading.value = false
     }).catch((err: Error) => {
-      let msg = `JSON Error: ${err}`
+      const msg = `JSON Error: ${err}`
       console.log(msg)
       error.value = msg
       loading.value = false
     })
-  }).catch((err: any) => {
-    let msg = `Fetch Error: ${err.toString()}`
+  }).catch((err) => {
+    const msg = `Fetch Error: ${err.toString()}`
     console.log(msg)
     error.value = msg
     loading.value = false
@@ -60,10 +60,10 @@ function fetchTides(stationId: string) {
   <div v-else-if="tides">
     <h2>Station {{ stationId }}</h2>
     <table>
-      <tr v-for="item in tides">
-        <td>{{ item.t }}</td>
-        <td>{{ item.type == "H" ? "High" : "Low" }}</td>
-        <td>{{ item.v }}</td>
+      <tr v-for="tide in tides" :key="tide.t">
+        <td>{{ tide.t }}</td>
+        <td>{{ tide.type == "H" ? "High" : "Low" }}</td>
+        <td>{{ tide.v }}</td>
       </tr>
     </table>
   </div>

@@ -22,7 +22,7 @@ import {RouterView} from "vue-router"
   </main>
 
   <footer>
-    <p>&copy; 2025 <a href="http://justinwhite.net">Justin White</a></p>
+    <p>&copy; 2025 <a href="https://www.justinwhite.net">Justin White</a></p>
   </footer>
 </template>
 

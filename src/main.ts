@@ -2,7 +2,7 @@ import {createApp} from "vue"
 import "./style.css"
 import {createRouter, createWebHistory} from "vue-router"
 import App from "./App.vue"
-import About from "./components/About.vue"
+import AboutPage from "./components/AboutPage.vue"
 import StationsChooser from "./components/StationsChooser.vue"
 import TidesChooser from "./components/TidesChooser.vue"
 import StationByLocation from "./components/StationByLocation.vue"
@@ -15,7 +15,7 @@ export const router = createRouter({
   history: createWebHistory(),
   routes: [
     {path: "/", component: TidesChooser},
-    {path: "/about", component: About},
+    {path: "/about", component: AboutPage},
     {path: "/tides", component: TidesChooser},
     {path: "/stations", component: StationsChooser},
     {path: "/tides/location/:loc", component: TidesByLocation, props: true},
