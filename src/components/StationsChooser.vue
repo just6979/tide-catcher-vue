@@ -50,7 +50,7 @@ function gotoStationsAll() {
 </template>
 
 <style scoped>
-#tides-chooser {
+#station-chooser {
   border-bottom: dotted thin;
 }
 </style>
