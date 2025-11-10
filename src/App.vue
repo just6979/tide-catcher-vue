@@ -5,7 +5,7 @@ import {RouterView} from "vue-router"
 <template>
   <header>
     <a id="title" href="/">
-      <img src="/images/wave_left_48.png" alt="WaveLeft"/>
+      <img src="/images/wave-line-icon-192.png" alt="Wave Icon" width="64" height="64"/>
       <h1>Tide Catcher</h1>
       <nav>
         <RouterLink to="/tides">Tides</RouterLink>
@@ -28,9 +28,9 @@ import {RouterView} from "vue-router"
 
 <style scoped>
 header {
+  color: #29b7ef;
   margin: auto;
   padding-bottom: 0.5em;
-  border-bottom: dotted thin;
 }
 
 header a {
@@ -44,8 +44,9 @@ header h1 {
   margin: 0;
 }
 
-footer {
+main {
   border-top: dotted thin;
+  border-bottom: dotted thin;
 }
 
 nav {
