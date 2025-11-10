@@ -19,9 +19,11 @@ function gotoTidesByLocation(location: string) {
 <template>
   <div id="tides-chooser">
     <p>
-      How would you like
-      <br/>
-      to get your tides?
+      <strong>
+        How would you like
+        <br/>
+        to get your tides?
+      </strong>
     </p>
     <p>
       &nbsp;Nearby

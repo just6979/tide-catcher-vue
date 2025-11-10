@@ -4,10 +4,19 @@ import {RouterView} from "vue-router"
 
 <template>
   <header>
-    <a href="/">
-      <img src="/images/wave_left_64.png" alt="WaveLeft"/>
+    <a id="title" href="/">
+      <img src="/images/wave_left_48.png" alt="WaveLeft"/>
       <h1>Tide Catcher</h1>
     </a>
+  </header>
+
+  <main>
+    <Suspense>
+      <RouterView></RouterView>
+    </Suspense>
+  </main>
+
+  <footer>
     <nav>
       <RouterLink to="/tides">
         <button>Tides</button>
@@ -19,13 +28,6 @@ import {RouterView} from "vue-router"
         <button>About</button>
       </RouterLink>
     </nav>
-  </header>
-
-  <Suspense>
-    <RouterView></RouterView>
-  </Suspense>
-
-  <footer>
     <p>(C) 2025 Justin White</p>
   </footer>
 </template>
@@ -33,16 +35,18 @@ import {RouterView} from "vue-router"
 <style scoped>
 header {
   margin: auto;
-  padding: 0;
+  padding-bottom: 0.25em;
   border-bottom: dotted thin;
 }
 
-img {
-  margin: 0;
-  padding: 0;
+header a {
+  text-decoration: none;
 }
 
-h1 {
+header h1 {
+  font-family: "Trade Winds", monospace;
+  font-weight: 400;
+  font-style: normal;
   margin: 0;
 }
 
