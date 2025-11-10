@@ -24,7 +24,6 @@ export const router = createRouter({
     {path: "/station/id/:id", component: StationByStation, props: true},
     {path: "/station/all", component: StationsAll, props: true},
   ],
-  linkActiveClass: "active-route",
 })
 
 const app = createApp(App)

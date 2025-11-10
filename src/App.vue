@@ -7,6 +7,11 @@ import {RouterView} from "vue-router"
     <a id="title" href="/">
       <img src="/images/wave_left_48.png" alt="WaveLeft"/>
       <h1>Tide Catcher</h1>
+      <nav>
+        <RouterLink to="/tides">Tides</RouterLink>
+        <RouterLink to="/stations">Stations</RouterLink>
+        <RouterLink to="/about">About</RouterLink>
+      </nav>
     </a>
   </header>
 
@@ -17,25 +22,14 @@ import {RouterView} from "vue-router"
   </main>
 
   <footer>
-    <nav>
-      <RouterLink to="/tides">
-        <button>Tides</button>
-      </RouterLink>
-      <RouterLink to="/stations">
-        <button>Stations</button>
-      </RouterLink>
-      <RouterLink to="/about">
-        <button>About</button>
-      </RouterLink>
-    </nav>
-    <p>(C) 2025 Justin White</p>
+    <p>&copy; 2025 <a href="http://justinwhite.net">Justin White</a></p>
   </footer>
 </template>
 
 <style scoped>
 header {
   margin: auto;
-  padding-bottom: 0.25em;
+  padding-bottom: 0.5em;
   border-bottom: dotted thin;
 }
 
@@ -50,20 +44,35 @@ header h1 {
   margin: 0;
 }
 
-nav {
-  padding: 0.5em;
+footer {
+  border-top: dotted thin;
 }
 
-nav button {
+nav {
+  font-size: 75%;
+  padding: 1em;
+}
+
+nav a {
+  color: white;
+  background: buttonface;
+  text-decoration: none;
   padding: 0.25em 1em;
+  border: solid thin buttonface;
+}
+
+nav a:hover {
+  filter: brightness(125%);
   border: dotted thin;
 }
 
-.active-route button {
+.router-link-active {
+  font-weight: bold;
   border: solid thin;
 }
 
-footer {
-  border-top: dotted thin;
+footer p {
+  font-size: 75%;
+
 }
 </style>
