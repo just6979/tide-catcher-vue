@@ -12,7 +12,6 @@ html,
 body {
   min-width: 320px;
   max-width: 500px;
-  padding: 0.5em 0;
   margin: auto;
 }
 
@@ -25,7 +24,7 @@ body {
   font-size: 125%;
   width: 100%;
   margin: 0;
-  padding: 0;
+  padding: 0.5em 0;
   text-align: center;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: subpixel-antialiased;
@@ -34,6 +33,14 @@ body {
 
 a {
   color: inherit;
+}
+
+input {
+  font-family: inherit;
+}
+
+button {
+  font-family: inherit;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -45,8 +52,4 @@ a {
 #app {
   margin: 0;
   padding: 0;
-}
-
-.active-route button {
-  filter: brightness(125%);
 }

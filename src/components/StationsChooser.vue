@@ -52,7 +52,4 @@ function gotoStationsAll() {
 </template>
 
 <style scoped>
-#station-chooser {
-  border-bottom: dotted thin;
-}
 </style>

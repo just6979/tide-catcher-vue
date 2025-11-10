@@ -44,7 +44,4 @@ function gotoTidesByLocation(location: string) {
 </template>
 
 <style scoped>
-#tides-chooser {
-  border-bottom: dotted thin;
-}
 </style>
