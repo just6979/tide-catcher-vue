@@ -10,6 +10,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v5
+      - name: Configure GitHub Pages
+        id: config
+        uses: actions/configure-pages@v5
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
@@ -22,7 +25,7 @@ jobs:
       - name: Install dependencies
         run: pnpm install
       - name: Build project
-        run: pnpm run build
+        run: BASE_PATH=${{ steps.config.outputs.base_path }} pnpm run build
       - name: Upload production-ready build files
         id: deployment
         uses: actions/upload-pages-artifact@v3

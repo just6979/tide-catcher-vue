@@ -1,10 +1,11 @@
 import vue from "@vitejs/plugin-vue"
 import {defineConfig} from "vite"
 
-// https://vite.dev/config/
+console.log(process.env)
+
 export default defineConfig({
   plugins: [vue()],
-  base: process.env.GITHUB_PAGES === "production" ? "/tide-catcher-vue/" : "/",
+  base: process.env.BASE_PATH || "/",
   server: {
     port: 3000
   },
