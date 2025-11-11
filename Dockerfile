@@ -13,7 +13,7 @@ FROM base AS build
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
 RUN pnpm run build
 
-FROM nginx:stable-alpine as production-stage
+FROM nginx:stable-alpine AS production-stage
 COPY --from=build /app/dist /usr/share/nginx/html
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
