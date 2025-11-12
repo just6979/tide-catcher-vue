@@ -24,9 +24,7 @@ function gotoStationsAll() {
   <div id="stations-chooser">
     <p>
       <strong>
-        How would you like
-        <br/>
-        to get your station?
+        Choose your station:
       </strong>
     </p>
     <p>

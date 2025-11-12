@@ -3,13 +3,13 @@ import "./style.css"
 import {createRouter, createWebHistory} from "vue-router"
 import App from "./App.vue"
 import AboutPage from "./components/AboutPage.vue"
-import StationsChooser from "./components/StationsChooser.vue"
-import TidesChooser from "./components/TidesChooser.vue"
 import StationByLocation from "./components/StationByLocation.vue"
 import StationByStation from "./components/StationByStation.vue"
 import StationsAll from "./components/StationsAll.vue"
+import StationsChooser from "./components/StationsChooser.vue"
 import TidesByLocation from "./components/TidesByLocation.vue"
 import TidesByStation from "./components/TidesByStation.vue"
+import TidesChooser from "./components/TidesChooser.vue"
 
 export const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),

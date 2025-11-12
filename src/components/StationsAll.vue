@@ -47,7 +47,8 @@ fetch(url).then((res) => {
     <h2>Found {{ stations.length }} Stations</h2>
     <ul>
       <li v-for="station in stations" :key="station.stationId">
-        <RouterLink :to="`/stations/id/${station.stationId}`">{{ station.stationId }}</RouterLink>:
+        <RouterLink :to="`/stations/id/${station.stationId}`">{{ station.stationId }}</RouterLink>
+        |
         {{ station.commonName }}, {{ station.state }}
       </li>
     </ul>
