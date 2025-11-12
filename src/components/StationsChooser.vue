@@ -8,20 +8,20 @@ const location = ref("")
 const gpsLocation = ref("")
 
 function gotoStationByStation(id: string) {
-  router.push(`/station/id/${(id !== "" ? id : DEFAULT_STATION)}`)
+  router.push(`/stations/id/${(id !== "" ? id : DEFAULT_STATION)}`)
 }
 
 function gotoStationByLocation(location: string) {
-  router.push(`/station/location/${(location !== "" ? location : DEFAULT_LOCATION)}`)
+  router.push(`/stations/location/${(location !== "" ? location : DEFAULT_LOCATION)}`)
 }
 
 function gotoStationsAll() {
-  router.push("/station/all")
+  router.push("/stations/all")
 }
 </script>
 
 <template>
-  <div id="station-chooser">
+  <div id="stations-chooser">
     <p>
       <strong>
         How would you like

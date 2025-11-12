@@ -20,9 +20,9 @@ export const router = createRouter({
     {path: "/stations", component: StationsChooser},
     {path: "/tides/location/:loc", component: TidesByLocation, props: true},
     {path: "/tides/station/:id", component: TidesByStation, props: true},
-    {path: "/station/location/:loc", component: StationByLocation, props: true},
-    {path: "/station/id/:id", component: StationByStation, props: true},
-    {path: "/station/all", component: StationsAll, props: true},
+    {path: "/stations/location/:loc", component: StationByLocation, props: true},
+    {path: "/stations/id/:id", component: StationByStation, props: true},
+    {path: "/stations/all", component: StationsAll, props: true},
   ],
 })
 
