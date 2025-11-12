@@ -80,8 +80,8 @@ function fetchTidePredStation(location: [number, number]) {
     <p>Error: {{ error }}</p>
   </div>
   <div v-else-if="station">
-    <h2>Station {{ station.stationId }}</h2>
     <table>
+      <caption>{{ station.stationName }}</caption>
       <tbody>
       <tr>
         <td>NOAA ID</td>
@@ -113,8 +113,8 @@ function fetchTidePredStation(location: [number, number]) {
         <td>{{ station.commonName }}</td>
       </tr>
       <tr>
-        <td>Station Name</td>
-        <td>{{ station.stationName }}</td>
+        <td>Full Name</td>
+        <td>{{ station.stationFullName }}</td>
       </tr>
       <tr>
         <td>eTides Name</td>
@@ -147,22 +147,30 @@ div {
 
 table {
   width: 100%;
-  margin: 0;
+  margin: 1em 0 ;
   border-collapse: collapse;
-  border-color: #666666;
-  border-width: thin;
+  font-size: 66%;
 }
 
-tr {
-  border-width: thin;
-  border-color: inherit;
-  border-style: solid;
+caption {
+  padding-bottom: 0.5em;
+  font-size: 133%;
 }
 
-tr td:first-child {
+td {
+  padding: 0.5em;
+}
+
+td:first-child {
   width: 50%;
   border-width: thin;
   border-color: inherit;
   border-right-style: dotted;
+  text-align: end;
+  white-space: nowrap;
+}
+
+tr {
+  text-align: start;
 }
 </style>
