@@ -1,6 +1,6 @@
 export interface NoaaError {
   error: {
-    message: string;
+    message: string
   }
 }
 

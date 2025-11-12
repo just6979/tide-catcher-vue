@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import {WEEKDAYS} from "../constants.ts"
-import type {NoaaTidePrediction} from "../types.ts"
+import { WEEKDAYS } from "../constants.ts"
+import type { NoaaTidePrediction } from "../types.ts"
 
 const props = defineProps<{
   tide: NoaaTidePrediction
@@ -19,19 +19,15 @@ const date = `${(tideDate.getMonth() + 1).toString().padStart(2, "0")}/${tideDat
 
 <template>
   <tr :class="`${prior} ${tideType}`">
-    <td>
-      {{ arrow }} {{ tideType.toUpperCase().padEnd(4, "\u00A0") }}
-    </td>
+    <td>{{ arrow }} {{ tideType.toUpperCase().padEnd(4, "\u00A0") }}</td>
     <td class="time">{{ time }}</td>
     <td class="day">{{ day }}</td>
     <td class="date">{{ date }}</td>
   </tr>
-
 </template>
 
 <style scoped>
 td {
   padding: 0.5em;
 }
-
 </style>

@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import {faArrowUpRightFromSquare} from "@fortawesome/free-solid-svg-icons"
-import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome"
-import type {NoaaTidePredStation} from "../types.ts"
+import { faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome"
+import type { NoaaTidePredStation } from "../types.ts"
 
 const props = defineProps<{
-  station?: NoaaTidePredStation,
-  reqLoc?: [number, number],
+  station?: NoaaTidePredStation
+  reqLoc?: [number, number]
 }>()
 
 const now = new Date().toLocaleString()
@@ -21,63 +21,58 @@ if (station) {
 <template>
   <table class="request-info">
     <tbody>
-    <tr>
-      <td>Current Time</td>
-      <td>{{ now }}</td>
-    </tr>
-    <tr v-if="reqLoc">
-      <td>
-        <a
-            :href="`https://www.google.com/maps/place/${reqLoc}/@${reqLoc},12z`"
-            class="external"
-            target="_blank"
-        >
-          Your Location
-          <FontAwesomeIcon :icon="faArrowUpRightFromSquare"/>
-        </a>
-      </td>
-      <td>
-        [
-        <RouterLink :to="`/tides/location/${reqLoc}`">{{ reqLoc }}</RouterLink>
-        ]
-      </td>
-    </tr>
-    <tr v-if="station">
-      <td>
-        <a
+      <tr>
+        <td>Current Time</td>
+        <td>{{ now }}</td>
+      </tr>
+      <tr v-if="reqLoc">
+        <td>
+          <a :href="`https://www.google.com/maps/place/${reqLoc}/@${reqLoc},12z`" class="external" target="_blank">
+            Your Location
+            <FontAwesomeIcon :icon="faArrowUpRightFromSquare" />
+          </a>
+        </td>
+        <td>
+          [
+          <RouterLink :to="`/tides/location/${reqLoc}`">{{ reqLoc }}</RouterLink>
+          ]
+        </td>
+      </tr>
+      <tr v-if="station">
+        <td>
+          <a
             :href="`https://tidesandcurrents.noaa.gov/noaatidepredictions.html?id=${station.stationId}`"
             class="external"
             target="_blank"
-        >
-          Station ID
-          <FontAwesomeIcon :icon="faArrowUpRightFromSquare"/>
-        </a>
-      </td>
-      <td>
-        <RouterLink :to="`/tides/station/${station.stationId}`">
-          {{ station.stationId }}
-        </RouterLink>
-        (<RouterLink :to="`/stations/id/${station.stationId}`">Details</RouterLink>)
-      </td>
-    </tr>
-    <tr v-if="station">
-      <td>
-        <a
+          >
+            Station ID
+            <FontAwesomeIcon :icon="faArrowUpRightFromSquare" />
+          </a>
+        </td>
+        <td>
+          <RouterLink :to="`/tides/station/${station.stationId}`">
+            {{ station.stationId }}
+          </RouterLink>
+          (<RouterLink :to="`/stations/id/${station.stationId}`">Details</RouterLink>)
+        </td>
+      </tr>
+      <tr v-if="station">
+        <td>
+          <a
             :href="`https://www.google.com/maps/place/${stationLoc}/@${stationLoc},12z`"
             class="external"
             target="_blank"
-        >
-          Station Location
-          <FontAwesomeIcon :icon="faArrowUpRightFromSquare"/>
-        </a>
-      </td>
-      <td>
-        [<RouterLink :to="`/tides/location/${stationLoc}`">{{ stationLoc }}</RouterLink>]
-      </td>
-    </tr>
+          >
+            Station Location
+            <FontAwesomeIcon :icon="faArrowUpRightFromSquare" />
+          </a>
+        </td>
+        <td>
+          [<RouterLink :to="`/tides/location/${stationLoc}`"> {{ stationLoc }} </RouterLink>]
+        </td>
+      </tr>
     </tbody>
   </table>
-
 </template>
 
 <style scoped>
@@ -105,5 +100,4 @@ if (station) {
 .external {
   text-decoration: none;
 }
-
 </style>

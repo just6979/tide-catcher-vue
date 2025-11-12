@@ -1,18 +1,18 @@
 <script setup lang="ts">
-import {RouterView} from "vue-router"
+import { RouterView } from "vue-router"
 </script>
 
 <template>
   <header>
     <RouterLink id="title" to="/">
-      <img src="/images/wave-line-icon-192.png" alt="Wave Icon" width="64" height="64"/>
+      <img src="/images/wave-line-icon-192.png" alt="Wave Icon" width="64" height="64" />
       <h1>Tide Catcher</h1>
     </RouterLink>
-      <nav>
-        <RouterLink to="/tides">Tides</RouterLink>
-        <RouterLink to="/stations">Stations</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
+    <nav>
+      <RouterLink to="/tides">Tides</RouterLink>
+      <RouterLink to="/stations">Stations</RouterLink>
+      <RouterLink to="/about">About</RouterLink>
+    </nav>
   </header>
 
   <main>
@@ -79,6 +79,5 @@ nav a:hover {
 
 footer p {
   font-size: 75%;
-
 }
 </style>

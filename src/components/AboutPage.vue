@@ -1,5 +1,4 @@
-<script setup lang="ts">
-</script>
+<script setup lang="ts"></script>
 
 <template>
   <div id="about">
@@ -22,14 +21,12 @@
           <a href="https://vite.dev" target="_blank">Vite</a>
         </li>
         <li>
-          <a href="https://github.com/just6979/tide-catcher-vue" target="_blank">Open-source</a>,
-          hosted on
+          <a href="https://github.com/just6979/tide-catcher-vue" target="_blank">Open-source</a>, hosted on
           <a href="https://github.com/" target="_blank">Github</a>
         </li>
         <li>
-          Privacy: We don&#39;t record or save anything. Your location might
-          end up in a request log, since you are sending it to us, but those
-          log are ephemeral and currently only retained for 1 day.
+          Privacy: We don&#39;t record or save anything. Your location might end up in a request log, since you are
+          sending it to us, but those log are ephemeral and currently only retained for 1 day.
         </li>
       </ul>
     </div>
@@ -37,18 +34,9 @@
     <div id="coming-soon">
       <h3>Coming Soon</h3>
       <ul>
-        <li>
-          Cache recently used stations and tide data to minimize external
-          data requests
-        </li>
-        <li>
-          Offline mode: pull 7 days of data at a time, will only need
-          internet when that data is stale.
-        </li>
-        <li>
-          Favorite stations: Keep a list of nearby stations instead of
-          relying on GPS data.
-        </li>
+        <li>Cache recently used stations and tide data to minimize external data requests</li>
+        <li>Offline mode: pull 7 days of data at a time, will only need internet when that data is stale.</li>
+        <li>Favorite stations: Keep a list of nearby stations instead of relying on GPS data.</li>
       </ul>
     </div>
   </div>
