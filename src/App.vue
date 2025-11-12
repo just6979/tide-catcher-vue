@@ -7,12 +7,12 @@ import {RouterView} from "vue-router"
     <a id="title" href="/">
       <img src="/images/wave-line-icon-192.png" alt="Wave Icon" width="64" height="64"/>
       <h1>Tide Catcher</h1>
+    </a>
       <nav>
         <RouterLink to="/tides">Tides</RouterLink>
         <RouterLink to="/stations">Stations</RouterLink>
         <RouterLink to="/about">About</RouterLink>
       </nav>
-    </a>
   </header>
 
   <main>
