@@ -2,7 +2,8 @@
 import {ref, watch} from "vue"
 import {useRoute} from "vue-router"
 import {DEFAULT_STATION} from "../constants.ts"
-import type {NoaaCoOpsResponse, NoaaError, NoaaTidePredResponse, NoaaTidePredStation} from "../types.ts"
+import {fetchCoOpsStation, fetchTidePredStation} from "../lib/stations.ts"
+import type {NoaaTidePredStation} from "../types.ts"
 
 const route = useRoute()
 const loading = ref(true)
@@ -11,65 +12,15 @@ const location = ref<[number, number]>()
 const station = ref<NoaaTidePredStation>()
 
 // fill in the location ref using the NOAA CO-OPS API
-fetchCoOpsStation(route.params.id?.toString() || DEFAULT_STATION)
+fetchCoOpsStation(route.params.id?.toString() || DEFAULT_STATION, location, error)
 // uses the location ref to get the station details from the TidePredStations API
 watch(location, (newLocation) => {
-  if (newLocation) fetchTidePredStation(newLocation)
+  if (newLocation) {
+    fetchTidePredStation(newLocation, error, station)
+    loading.value = false
+  }
 })
 
-function fetchCoOpsStation(stationId: string) {
-  const url = `https://api.tidesandcurrents.noaa.gov/mdapi/prod/webapi/stations/${stationId}.json`
-  fetch(url).then((res) => {
-    res.json().then((data: NoaaCoOpsResponse | NoaaError) => {
-      if (!("error" in data)) {
-        const coOpsStation = data.stations[0]
-        if (coOpsStation) {
-          location.value = [coOpsStation.lat, coOpsStation.lng]
-        }
-
-      } else {
-        console.log(`Message: ${data["error"]["message"]}`)
-        console.log(`URL: ${url}`)
-        error.value = data["error"]["message"]
-      }
-    })
-  }).catch((err: Error) => {
-    const msg = `JSON Error: ${err}`
-    console.log(msg)
-    error.value = msg
-  }).catch((err) => {
-    const msg = `Fetch Error: ${err.toString()}`
-    console.log(msg)
-    error.value = msg
-  })
-}
-
-function fetchTidePredStation(location: [number, number]) {
-  const url = `https://api.tidesandcurrents.noaa.gov/mdapi/prod/webapi/tidepredstations.json` +
-      `?lat=${location[0]}&lon=${location[1]}&radius=1`
-  fetch(url).then((res) => {
-    res.json().then((data: NoaaTidePredResponse | NoaaError) => {
-      if (!("error" in data)) {
-        station.value = data["stationList"][0]
-      } else {
-        console.log(`Message: ${data["error"]["message"]}`)
-        console.log(`URL: ${url}`)
-        error.value = data["error"]["message"]
-      }
-      loading.value = false
-    }).catch((err: Error) => {
-      const msg = `JSON Error: ${err}`
-      console.log(msg)
-      error.value = msg
-      loading.value = false
-    })
-  }).catch((err) => {
-    const msg = `Fetch Error: ${err.toString()}`
-    console.log(msg)
-    error.value = msg
-    loading.value = false
-  })
-}
 </script>
 
 <template>
@@ -147,7 +98,7 @@ div {
 
 table {
   width: 100%;
-  margin: 1em 0 ;
+  margin: 1em 0;
   border-collapse: collapse;
   font-size: 66%;
 }

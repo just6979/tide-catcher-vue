@@ -1,18 +1,21 @@
 <script setup lang="ts">
 import {faArrowUpRightFromSquare} from "@fortawesome/free-solid-svg-icons"
 import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome"
+import type {NoaaTidePredStation} from "../types.ts"
 
 const props = defineProps<{
-  stationId: string,
-  reqLoc?: string,
-  stationLoc?: string
+  station?: NoaaTidePredStation,
+  reqLoc?: [number, number],
 }>()
 
 const now = new Date().toLocaleString()
-const stationId = props.stationId
-const reqLoc = props.reqLoc
-const stationLoc = props.stationLoc
+const station = props.station
+const reqLoc = props.reqLoc?.join(",")
 
+let stationLoc: string
+if (station) {
+  stationLoc = `${station.lat.toFixed(5)}, ${station.lon.toFixed(5)}`
+}
 </script>
 
 <template>
@@ -39,10 +42,10 @@ const stationLoc = props.stationLoc
         ]
       </td>
     </tr>
-    <tr>
+    <tr v-if="station">
       <td>
         <a
-            :href="`https://tidesandcurrents.noaa.gov/noaatidepredictions.html?id=${stationId}`"
+            :href="`https://tidesandcurrents.noaa.gov/noaatidepredictions.html?id=${station.stationId}`"
             class="external"
             target="_blank"
         >
@@ -51,15 +54,13 @@ const stationLoc = props.stationLoc
         </a>
       </td>
       <td>
-        <RouterLink :to="`/tides/station/${stationId}`">
-          {{ stationId }}
+        <RouterLink :to="`/tides/station/${station.stationId}`">
+          {{ station.stationId }}
         </RouterLink>
-        (
-        <RouterLink :to="`/stations/id/${stationId}`">Details</RouterLink>
-        )
+        (<RouterLink :to="`/stations/id/${station.stationId}`">Details</RouterLink>)
       </td>
     </tr>
-    <tr v-if="stationLoc">
+    <tr v-if="station">
       <td>
         <a
             :href="`https://www.google.com/maps/place/${stationLoc}/@${stationLoc},12z`"
@@ -71,9 +72,7 @@ const stationLoc = props.stationLoc
         </a>
       </td>
       <td>
-        [
-        <RouterLink :to="`/tides/location/${stationLoc}`">{stationLoc}</RouterLink>
-        ]
+        [<RouterLink :to="`/tides/location/${stationLoc}`">{{ stationLoc }}</RouterLink>]
       </td>
     </tr>
     </tbody>
@@ -100,6 +99,7 @@ const stationLoc = props.stationLoc
 .request-info td {
   text-align: start;
   padding: 0.5em;
+  white-space: collapse;
 }
 
 .external {

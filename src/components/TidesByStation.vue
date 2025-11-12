@@ -1,20 +1,36 @@
 <script setup lang="ts">
 import {subHours} from "date-fns"
-import {ref} from "vue"
+import {ref, watch} from "vue"
 import {useRoute} from "vue-router"
 import {DEFAULT_STATION} from "../constants.ts"
-import type {NoaaError, NoaaTidePrediction, NoaaTidesResponse} from "../types.ts"
+import {fetchCoOpsStation, fetchTidePredStation} from "../lib/stations.ts"
+import type {NoaaError, NoaaTidePrediction, NoaaTidePredStation, NoaaTidesResponse} from "../types.ts"
 import RequestTable from "./RequestTable.vue"
 import TideRow from "./TideRow.vue"
 
 const route = useRoute()
 const loading = ref(true)
 const error = ref<string>()
+const location = ref<[number, number]>()
+const station = ref<NoaaTidePredStation>()
 const tides = ref<NoaaTidePrediction[]>()
 
 const stationId = route.params.id?.toString() || DEFAULT_STATION
 
-fetchTides(stationId)
+fetchCoOpsStation(route.params.id?.toString() || DEFAULT_STATION, location, error)
+// uses the location ref to get the station details from the TidePredStations API
+watch(location, (newLocation) => {
+  if (newLocation) {
+    fetchTidePredStation(newLocation, error, station)
+  }
+})
+
+watch(station, (newStation) => {
+  if (newStation) {
+    fetchTides(newStation.stationId)
+    loading.value = false
+  }
+})
 
 function fetchTides(stationId: string) {
   const backdateHours = 7
@@ -66,12 +82,12 @@ function fetchTides(stationId: string) {
   </div>
   <div v-else-if="tides">
     <table id="tides">
-      <caption>Station {{ stationId }}</caption>
+      <caption>{{ station?.stationName || `Station ${stationId}` }}</caption>
       <tbody>
       <TideRow v-for="tide in tides" :key="tide.t" :tide="tide"/>
       </tbody>
     </table>
-    <RequestTable :station-id="stationId"/>
+    <RequestTable :station="station"/>
   </div>
   <div v-else>
     <p>No Tides found for {{ stationId }}.</p>
