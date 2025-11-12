@@ -12,7 +12,7 @@ import TidesByLocation from "./components/TidesByLocation.vue"
 import TidesByStation from "./components/TidesByStation.vue"
 
 export const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {path: "/", component: TidesChooser},
     {path: "/about", component: AboutPage},
