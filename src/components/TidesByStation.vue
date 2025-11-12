@@ -104,6 +104,7 @@ function fetchTides(stationId: string) {
   </div>
 </template>
 
+<!--suppress CssUnusedSymbol-->
 <style scoped>
 div {
   text-align: center;
@@ -131,7 +132,7 @@ tbody > .future ~ .future {
 
 .prior {
   font-size: 66%;
-  filter: contrast(50%) saturate(50%) blur(0.5px);
+  filter: contrast(50%) saturate(50%) blur(1px);
 }
 
 .high {

@@ -26,6 +26,7 @@ import { RouterView } from "vue-router"
   </footer>
 </template>
 
+<!--suppress CssUnusedSymbol -->
 <style scoped>
 header {
   color: #29b7ef;
