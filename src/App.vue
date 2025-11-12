@@ -4,10 +4,10 @@ import {RouterView} from "vue-router"
 
 <template>
   <header>
-    <a id="title" href="/">
+    <RouterLink id="title" to="/">
       <img src="/images/wave-line-icon-192.png" alt="Wave Icon" width="64" height="64"/>
       <h1>Tide Catcher</h1>
-    </a>
+    </RouterLink>
       <nav>
         <RouterLink to="/tides">Tides</RouterLink>
         <RouterLink to="/stations">Stations</RouterLink>
@@ -70,6 +70,11 @@ nav a:hover {
 .router-link-active {
   font-weight: bold;
   border: solid thin;
+}
+
+#title {
+  font-weight: normal;
+  border: none;
 }
 
 footer p {
