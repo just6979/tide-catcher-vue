@@ -35,8 +35,10 @@ if (station) {
           </a>
         </td>
         <td>
-          [<RouterLink :to="`/tides/location/${reqLoc}`">{{ reqLoc }}</RouterLink
-          >]
+          [{{ reqLoc }}]
+          <br />
+          (<RouterLink :to="`/station/location/${reqLoc}`">Station</RouterLink>,
+          <RouterLink :to="`/tides/location/${reqLoc}`">Tides</RouterLink>)
         </td>
       </tr>
       <tr v-if="station">
@@ -51,10 +53,10 @@ if (station) {
           </a>
         </td>
         <td>
-          <RouterLink :to="`/tides/id/${station.stationId}`">
-            {{ station.stationId }}
-          </RouterLink>
-          (<RouterLink :to="`/station/id/${station.stationId}`">Details</RouterLink>)
+          {{ station.stationId }}
+          <br />
+          <RouterLink :to="`/station/id/${station.stationId}`">Station</RouterLink>,
+          <RouterLink :to="`/tides/id/${station.stationId}`">Tides</RouterLink>
         </td>
       </tr>
       <tr v-if="station">
@@ -69,8 +71,10 @@ if (station) {
           </a>
         </td>
         <td>
-          [<RouterLink :to="`/tides/location/${stationLoc}`">{{ stationLoc }}</RouterLink
-          >]
+          [{{ stationLoc }}]
+          <br />
+          (<RouterLink :to="`/station/location/${stationLoc}`">Station</RouterLink>,
+          <RouterLink :to="`/tides/location/${stationLoc}`">Tides</RouterLink>)
         </td>
       </tr>
     </tbody>
@@ -79,24 +83,22 @@ if (station) {
 
 <style scoped>
 .request-info {
-  margin: 1em 0;
+  width: 80%;
+  margin: 1em auto;
   font-size: 66%;
 }
 
 .request-info td:first-child {
   border-right: dotted thin;
   white-space: nowrap;
-}
-
-.request-info td:first-child {
   width: 50%;
   text-align: end;
+  padding: 0.5em;
 }
 
 .request-info td {
   text-align: start;
   padding: 0.5em;
-  white-space: collapse;
 }
 
 .external {
