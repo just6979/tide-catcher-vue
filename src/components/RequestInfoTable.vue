@@ -4,17 +4,19 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome"
 import type { NoaaTidePredStation } from "../lib/types.ts"
 
 const props = defineProps<{
-  station?: NoaaTidePredStation
-  reqLoc?: [number, number]
+  station: NoaaTidePredStation
+  reqLocation?: [number, number]
 }>()
 
 const now = new Date().toLocaleString()
-const station = props.station
-const reqLoc = props.reqLoc?.join(",")
+let reqLoc: string
+if (props.reqLocation) {
+  reqLoc = `${props.reqLocation[0].toFixed(5)},${props.reqLocation[1].toFixed(5)}`
+}
 
 let stationLoc: string
-if (station) {
-  stationLoc = `${station.lat.toFixed(5)},${station.lon.toFixed(5)}`
+if (props.station) {
+  stationLoc = `${props.station.lat.toFixed(5)},${props.station.lon.toFixed(5)}`
 }
 </script>
 
@@ -33,9 +35,8 @@ if (station) {
           </a>
         </td>
         <td>
-          [
-          <RouterLink :to="`/tides/location/${reqLoc}`">{{ reqLoc }}</RouterLink>
-          ]
+          [<RouterLink :to="`/tides/location/${reqLoc}`">{{ reqLoc }}</RouterLink
+          >]
         </td>
       </tr>
       <tr v-if="station">
@@ -68,7 +69,8 @@ if (station) {
           </a>
         </td>
         <td>
-          [<RouterLink :to="`/tides/location/${stationLoc}`"> {{ stationLoc }} </RouterLink>]
+          [<RouterLink :to="`/tides/location/${stationLoc}`">{{ stationLoc }}</RouterLink
+          >]
         </td>
       </tr>
     </tbody>

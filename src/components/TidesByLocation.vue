@@ -11,24 +11,51 @@ import TidesTable from "./TidesTable.vue"
 const route = useRoute()
 const loading = ref(true)
 const error = ref<string>()
+const locating = ref(false)
 const location = ref<[number, number]>()
 const station = ref<NoaaTidePredStation>()
 const tides = ref<NoaaTidePrediction[]>()
 
-const locationParam = route.params.loc?.toString() || DEFAULT_LOCATION
+function main() {
+  const locationParam = route.params.loc?.toString() || DEFAULT_LOCATION
 
-// get the location from params
-const locationSplit = locationParam.split(",")
-if (locationSplit.length >= 2) {
-  location.value = [Number(locationSplit[0]), Number(locationSplit[1])]
-} else {
-  error.value = "Invalid location."
+  if (locationParam === "gps") {
+    // get the location from geolocation
+    locating.value = true
+    console.log("Geolocating...")
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        location.value = [position.coords.latitude, position.coords.longitude]
+        console.log(`Geolocated: [${location.value}].`)
+        locating.value = false
+        loading.value = false
+      },
+      (err) => {
+        console.warn(`error getting location: ${GEOLOCATION_ERRORS[err.code]}`)
+        error.value = GEOLOCATION_ERRORS[err.code]
+        locating.value = false
+        loading.value = false
+      },
+      GEOLOCATION_OPTIONS,
+    )
+  } else {
+    // get the location from params
+    const locationSplit = locationParam.split(",")
+    console.log(locationSplit)
+    if (locationSplit.length >= 2) {
+      location.value = [Number(locationSplit[0]), Number(locationSplit[1])]
+    } else {
+      error.value = "Invalid location."
+    }
+  }
 }
 
 // uses the location ref to get the station details from the TidePredStations API
-if (location.value) {
-  fetchTidePredStation(location.value, error, station)
-}
+watch(location, (newLocation) => {
+  if (newLocation) {
+    fetchTidePredStation(newLocation, error, station)
+  }
+})
 
 // use the station details to get the tides
 watch(station, (newStation) => {
@@ -40,6 +67,8 @@ watch(station, (newStation) => {
 watch(tides, () => {
   loading.value = false
 })
+
+main()
 </script>
 
 <template>
@@ -60,7 +89,7 @@ watch(tides, () => {
       <div v-else>
         <p>No Tides found for {{ location }}.</p>
       </div>
-      <RequestInfoTable :station="station" />
+      <RequestInfoTable :station="station" :req-location="location" />
     </template>
     <div v-else>
       <p>No Station found for {{ location }}.</p>
