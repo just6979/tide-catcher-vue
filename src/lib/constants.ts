@@ -1,9 +1,7 @@
 /* Plum Island South */
 export const DEFAULT_STATION = "8441241"
 /* Plum Island South */
-export const DEFAULT_LOCATION = "42.710,-70.788"
-
-export const NOAA_API_BASE_PATH = `https://api.tidesandcurrents.noaa.gov`
+export const DEFAULT_LOCATION = "42.710,-70.789"
 
 export const DEFAULT_TIDEPRED_COUNT = 1
 export const DEFAULT_TIDEPRED_RADIUS = 10
