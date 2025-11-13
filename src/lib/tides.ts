@@ -7,6 +7,7 @@ export function fetchTides(
   error: Ref<string | undefined>,
   tides: Ref<NoaaTidePrediction[] | undefined>,
 ) {
+  console.log(`Fetching tides for Station ID ${station.stationId}.`)
   const backdateHours = 7
   const reqDate = subHours(new Date(), backdateHours)
 

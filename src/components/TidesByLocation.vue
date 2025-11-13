@@ -15,7 +15,6 @@ const station = ref<NoaaTidePredStation>()
 const tides = ref<NoaaTidePrediction[]>()
 
 const locationParam = route.params.location?.toString() || DEFAULT_LOCATION
-console.log(locationParam)
 
 // get the location from params
 const locationSplit = locationParam.split(",")
@@ -60,6 +59,4 @@ watch(station, (newStation) => {
   </div>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

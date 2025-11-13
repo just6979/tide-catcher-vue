@@ -6,6 +6,7 @@ export function fetchCoOpsStation(
   location: Ref<[number, number] | undefined>,
   error: Ref<string | undefined>,
 ) {
+  console.log(`Fetching location details for Station ID ${stationId}.`)
   const url = `https://api.tidesandcurrents.noaa.gov/mdapi/prod/webapi/stations/${stationId}.json`
   fetch(url)
     .then((res) => {
@@ -39,6 +40,7 @@ export function fetchTidePredStation(
   error: Ref<string | undefined>,
   station: Ref<NoaaTidePredStation | undefined>,
 ) {
+  console.log(`Fetching Station details for ${location}.`)
   const url =
     `https://api.tidesandcurrents.noaa.gov/mdapi/prod/webapi/tidepredstations.json` +
     `?lat=${location[0]}&lon=${location[1]}&radius=1`
