@@ -1,6 +1,6 @@
 import { createApp } from "vue"
 import "./style.css"
-import { createRouter, createWebHistory } from "vue-router"
+import { createRouter, createWebHashHistory } from "vue-router"
 import App from "./App.vue"
 import AboutPage from "./components/AboutPage.vue"
 import StationById from "./components/StationById.vue"
@@ -13,7 +13,7 @@ import TidesChooser from "./components/TidesChooser.vue"
 import { DEFAULT_LOCATION, DEFAULT_STATION } from "./lib/constants.ts"
 
 export const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHashHistory(import.meta.env.BASE_URL),
   routes: [
     { path: "/", component: TidesChooser },
     { path: "/about", component: AboutPage },
@@ -48,6 +48,8 @@ export const router = createRouter({
         return { path: `/station/location/${DEFAULT_LOCATION}` }
       },
     },
+    // TODO: make a 404 page
+    { path: "/:pathMatch(.*)*", component: TidesChooser },
   ],
 })
 
