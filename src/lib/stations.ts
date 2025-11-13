@@ -1,4 +1,5 @@
 import type { Ref } from "vue"
+import { DEFAULT_TIDEPRED_RADIUS } from "./constants.ts"
 import type { NoaaCoOpsResponse, NoaaError, NoaaTidePredResponse, NoaaTidePredStation } from "./types.ts"
 
 export function fetchCoOpsStation(
@@ -39,11 +40,12 @@ export function fetchTidePredStation(
   location: [number, number],
   error: Ref<string | undefined>,
   station: Ref<NoaaTidePredStation | undefined>,
+  radius = DEFAULT_TIDEPRED_RADIUS,
 ) {
   console.log(`Fetching Station details for ${location}.`)
   const url =
     `https://api.tidesandcurrents.noaa.gov/mdapi/prod/webapi/tidepredstations.json` +
-    `?lat=${location[0]}&lon=${location[1]}&radius=1`
+    `?lat=${location[0]}&lon=${location[1]}&radius=${radius}`
   fetch(url)
     .then((res) => {
       res

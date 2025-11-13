@@ -23,7 +23,7 @@ fetchCoOpsStation(route.params.id?.toString() || DEFAULT_STATION, location, erro
 // uses the location ref to get the station details from the TidePredStations API
 watch(location, (newLocation) => {
   if (newLocation) {
-    fetchTidePredStation(newLocation, error, station)
+    fetchTidePredStation(newLocation, error, station, 1)
   }
 })
 
