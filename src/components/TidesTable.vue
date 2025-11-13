@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { NoaaTidePrediction, NoaaTidePredStation } from "../lib/types.ts"
-import RequestInfoTable from "./RequestInfoTable.vue"
 import TidesRow from "./TidesRow.vue"
 
 const props = defineProps<{
@@ -13,17 +12,16 @@ const tides = props.tides
 </script>
 
 <template>
-  <div>
-    <table id="tides">
-      <caption>
-        {{ station.stationName }}
-      </caption>
-      <tbody>
-        <TidesRow v-for="tide in tides" :key="tide.t" :tide="tide" />
-      </tbody>
-    </table>
-    <RequestInfoTable :station="station" />
-  </div>
+  <table id="tides">
+    <caption>
+      {{
+        station.stationName
+      }}
+    </caption>
+    <tbody>
+      <TidesRow v-for="tide in tides" :key="tide.t" :tide="tide" />
+    </tbody>
+  </table>
 </template>
 
 <style scoped>
@@ -59,5 +57,4 @@ tbody > .future ~ .future {
 .low {
   background-color: var(--low-row-bg);
 }
-
 </style>

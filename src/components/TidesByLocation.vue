@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { ref, watch } from "vue"
 import { useRoute } from "vue-router"
-import { DEFAULT_LOCATION } from "../lib/constants.ts"
+import { DEFAULT_LOCATION, GEOLOCATION_ERRORS, GEOLOCATION_OPTIONS } from "../lib/constants.ts"
 import { fetchTidePredStation } from "../lib/stations.ts"
 import { fetchTides } from "../lib/tides.ts"
 import type { NoaaTidePrediction, NoaaTidePredStation } from "../lib/types.ts"
+import RequestInfoTable from "./RequestInfoTable.vue"
 import TidesTable from "./TidesTable.vue"
 
 const route = useRoute()
@@ -33,7 +34,6 @@ if (location.value) {
 watch(station, (newStation) => {
   if (newStation) {
     fetchTides(newStation, error, tides)
-    console.log(tides.value)
   }
 })
 
@@ -43,22 +43,28 @@ watch(tides, () => {
 </script>
 
 <template>
-  <div v-if="loading">
-    <p>Loading...</p>
-  </div>
-  <div v-else-if="error">
-    <p>{{ error }}</p>
-  </div>
-  <template v-else-if="station">
-    <template v-if="tides">
-      <TidesTable :station="station" :tides="tides" />
+  <div>
+    <div v-if="locating">
+      <p>Geolocating...</p>
+    </div>
+    <div v-else-if="loading">
+      <p>Loading...</p>
+    </div>
+    <div v-else-if="error">
+      <p>{{ error }}</p>
+    </div>
+    <template v-else-if="station">
+      <template v-if="tides">
+        <TidesTable :station="station" :tides="tides" />
+      </template>
+      <div v-else>
+        <p>No Tides found for {{ location }}.</p>
+      </div>
+      <RequestInfoTable :station="station" />
     </template>
     <div v-else>
-      <p>No Tides found for {{ location }}.</p>
+      <p>No Station found for {{ location }}.</p>
     </div>
-  </template>
-  <div v-else>
-    <p>No Station found for {{ location }}.</p>
   </div>
 </template>
 

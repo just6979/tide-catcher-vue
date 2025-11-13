@@ -5,6 +5,7 @@ import { DEFAULT_STATION } from "../lib/constants.ts"
 import { fetchCoOpsStation, fetchTidePredStation } from "../lib/stations.ts"
 import { fetchTides } from "../lib/tides.ts"
 import type { NoaaTidePrediction, NoaaTidePredStation } from "../lib/types.ts"
+import RequestInfoTable from "./RequestInfoTable.vue"
 import TidesTable from "./TidesTable.vue"
 
 const route = useRoute()
@@ -39,22 +40,25 @@ watch(tides, () => {
 </script>
 
 <template>
-  <div v-if="loading">
-    <p>Loading...</p>
-  </div>
-  <div v-else-if="error">
-    <p>{{ error }}</p>
-  </div>
-  <template v-else-if="station">
-    <template v-if="tides">
-      <TidesTable :station="station" :tides="tides" />
+  <div>
+    <div v-if="loading">
+      <p>Loading...</p>
+    </div>
+    <div v-else-if="error">
+      <p>{{ error }}</p>
+    </div>
+    <template v-else-if="station">
+      <template v-if="tides">
+        <TidesTable :station="station" :tides="tides" />
+      </template>
+      <div v-else>
+        <p>No Tides found for {{ station?.stationId }}.</p>
+      </div>
+      <RequestInfoTable :station="station" />
     </template>
     <div v-else>
-      <p>No Tides found for {{ station?.stationId }}.</p>
+      <p>No Station found for {{ stationId }}.</p>
     </div>
-  </template>
-  <div v-else>
-    <p>No Station found for {{ stationId }}.</p>
   </div>
 </template>
 

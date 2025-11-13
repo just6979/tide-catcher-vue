@@ -28,17 +28,19 @@ watch(station, () => {
 </script>
 
 <template>
-  <div v-if="loading">
-    <p>Loading...</p>
-  </div>
-  <div v-else-if="error">
-    <p>Error: {{ error }}</p>
-  </div>
-  <div v-else-if="station">
-    <StationTable :station="station" />
-  </div>
-  <div v-else>
-    <p>No Station found for ID {{ route.params.id }}</p>
+  <div>
+    <div v-if="loading">
+      <p>Loading...</p>
+    </div>
+    <div v-else-if="error">
+      <p>Error: {{ error }}</p>
+    </div>
+    <div v-else-if="station">
+      <StationTable :station="station" />
+    </div>
+    <div v-else>
+      <p>No Station found for ID {{ route.params.id }}</p>
+    </div>
   </div>
 </template>
 

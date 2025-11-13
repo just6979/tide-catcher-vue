@@ -25,7 +25,7 @@ function gotoTidesByStationOnEnter(event, station: string) {
 </script>
 
 <template>
-  <div id="tides-chooser">
+  <div>
     <p>
       <strong> Choose your tides: </strong>
     </p>

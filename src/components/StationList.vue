@@ -42,24 +42,26 @@ fetch(url)
 </script>
 
 <template>
-  <div v-if="loading">
-    <p>Loading...</p>
-  </div>
-  <div v-else-if="error">
-    <p>{{ error }}</p>
-  </div>
-  <div v-else-if="stations">
-    <h2>Found {{ stations.length }} Stations</h2>
-    <ul>
-      <li v-for="station in stations" :key="station.stationId">
-        <RouterLink :to="`/station/id/${station.stationId}`">{{ station.stationId }}</RouterLink>
-        |
-        {{ station.commonName }}, {{ station.state }}
-      </li>
-    </ul>
-  </div>
-  <div v-else>
-    <p>No Stations found.</p>
+  <div>
+    <div v-if="loading">
+      <p>Loading...</p>
+    </div>
+    <div v-else-if="error">
+      <p>{{ error }}</p>
+    </div>
+    <div v-else-if="stations">
+      <h2>Found {{ stations.length }} Stations</h2>
+      <ul>
+        <li v-for="station in stations" :key="station.stationId">
+          <RouterLink :to="`/station/${station.stationId}`">{{ station.stationId }}</RouterLink>
+          |
+          {{ station.commonName }}, {{ station.state }}
+        </li>
+      </ul>
+    </div>
+    <div v-else>
+      <p>No Stations found.</p>
+    </div>
   </div>
 </template>
 
