@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { ref, watch } from "vue"
 import { useRoute } from "vue-router"
-import { DEFAULT_STATION } from "../constants.ts"
+import { DEFAULT_STATION } from "../lib/constants.ts"
 import { fetchCoOpsStation, fetchTidePredStation } from "../lib/stations.ts"
 import type { NoaaTidePredStation } from "../types.ts"
+import type { NoaaTidePredStation } from "../lib/types.ts"
 
 const route = useRoute()
 const loading = ref(true)

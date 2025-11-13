@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import type { NoaaTidePrediction, NoaaTidePredStation } from "../types.ts"
-import RequestTable from "./RequestTable.vue"
-import TideRow from "./TideRow.vue"
+import type { NoaaTidePrediction, NoaaTidePredStation } from "../lib/types.ts"
+import RequestInfoTable from "./RequestInfoTable.vue"
+import TidesRow from "./TidesRow.vue"
 
 const props = defineProps<{
   station: NoaaTidePredStation
@@ -19,10 +19,10 @@ const tides = props.tides
         {{ station.stationName }}
       </caption>
       <tbody>
-        <TideRow v-for="tide in tides" :key="tide.t" :tide="tide" />
+        <TidesRow v-for="tide in tides" :key="tide.t" :tide="tide" />
       </tbody>
     </table>
-    <RequestTable :station="station" />
+    <RequestInfoTable :station="station" />
   </div>
 </template>
 

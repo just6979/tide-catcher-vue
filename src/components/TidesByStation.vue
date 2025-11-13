@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { ref, watch } from "vue"
 import { useRoute } from "vue-router"
-import { DEFAULT_STATION } from "../constants.ts"
+import { DEFAULT_STATION } from "../lib/constants.ts"
 import { fetchCoOpsStation, fetchTidePredStation } from "../lib/stations.ts"
 import { fetchTides } from "../lib/tides.ts"
-import type { NoaaTidePrediction, NoaaTidePredStation } from "../types.ts"
+import type { NoaaTidePrediction, NoaaTidePredStation } from "../lib/types.ts"
 import TidesTable from "./TidesTable.vue"
 
 const route = useRoute()

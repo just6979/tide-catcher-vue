@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { WEEKDAYS } from "../constants.ts"
-import type { NoaaTidePrediction } from "../types.ts"
+import { WEEKDAYS } from "../lib/constants.ts"
+import type { NoaaTidePrediction } from "../lib/types.ts"
 
 const props = defineProps<{
   tide: NoaaTidePrediction

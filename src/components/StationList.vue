@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue"
-import type { NoaaError, NoaaTidePredResponse, NoaaTidePredStation } from "../types.ts"
+import type { NoaaError, NoaaTidePredResponse, NoaaTidePredStation } from "../lib/types.ts"
 
 const loading = ref(true)
 const error = ref<string>()
@@ -52,7 +52,7 @@ fetch(url)
     <h2>Found {{ stations.length }} Stations</h2>
     <ul>
       <li v-for="station in stations" :key="station.stationId">
-        <RouterLink :to="`/stations/id/${station.stationId}`">{{ station.stationId }}</RouterLink>
+        <RouterLink :to="`/station/${station.stationId}`">{{ station.stationId }}</RouterLink>
         |
         {{ station.commonName }}, {{ station.state }}
       </li>

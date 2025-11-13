@@ -1,7 +1,6 @@
 import { subHours } from "date-fns"
 import type { Ref } from "vue"
-import type { NoaaError, NoaaTidePrediction, NoaaTidePredStation, NoaaTidesResponse } from "../types.ts"
-
+import type { NoaaError, NoaaTidePrediction, NoaaTidePredStation, NoaaTidesResponse } from "./types.ts"
 
 export function fetchTides(
   station: NoaaTidePredStation,

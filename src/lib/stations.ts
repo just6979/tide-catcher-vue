@@ -1,5 +1,5 @@
 import type { Ref } from "vue"
-import type { NoaaCoOpsResponse, NoaaError, NoaaTidePredResponse, NoaaTidePredStation } from "../types.ts"
+import type { NoaaCoOpsResponse, NoaaError, NoaaTidePredResponse, NoaaTidePredStation } from "./types.ts"
 
 export function fetchCoOpsStation(
   stationId: string,

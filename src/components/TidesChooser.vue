@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue"
-import { DEFAULT_LOCATION, DEFAULT_STATION } from "../constants.ts"
+import { DEFAULT_LOCATION, DEFAULT_STATION } from "../lib/constants.ts"
 import { router } from "../main.ts"
 
 const station = ref("")

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome"
-import type { NoaaTidePredStation } from "../types.ts"
+import type { NoaaTidePredStation } from "../lib/types.ts"
 
 const props = defineProps<{
   station?: NoaaTidePredStation
@@ -14,7 +14,7 @@ const reqLoc = props.reqLoc?.join(",")
 
 let stationLoc: string
 if (station) {
-  stationLoc = `${station.lat.toFixed(5)}, ${station.lon.toFixed(5)}`
+  stationLoc = `${station.lat.toFixed(5)},${station.lon.toFixed(5)}`
 }
 </script>
 
@@ -53,7 +53,7 @@ if (station) {
           <RouterLink :to="`/tides/station/${station.stationId}`">
             {{ station.stationId }}
           </RouterLink>
-          (<RouterLink :to="`/stations/id/${station.stationId}`">Details</RouterLink>)
+          (<RouterLink :to="`/station/${station.stationId}`">Details</RouterLink>)
         </td>
       </tr>
       <tr v-if="station">

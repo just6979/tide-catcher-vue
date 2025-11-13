@@ -3,10 +3,10 @@ import "./style.css"
 import { createRouter, createWebHistory } from "vue-router"
 import App from "./App.vue"
 import AboutPage from "./components/AboutPage.vue"
+import StationById from "./components/StationById.vue"
 import StationByLocation from "./components/StationByLocation.vue"
-import StationByStation from "./components/StationByStation.vue"
-import StationsAll from "./components/StationsAll.vue"
-import StationsChooser from "./components/StationsChooser.vue"
+import StationChooser from "./components/StationChooser.vue"
+import StationList from "./components/StationList.vue"
 import TidesByLocation from "./components/TidesByLocation.vue"
 import TidesByStation from "./components/TidesByStation.vue"
 import TidesChooser from "./components/TidesChooser.vue"
@@ -17,16 +17,12 @@ export const router = createRouter({
     { path: "/", component: TidesChooser },
     { path: "/about", component: AboutPage },
     { path: "/tides", component: TidesChooser },
-    { path: "/stations", component: StationsChooser },
     { path: "/tides/location/:loc", component: TidesByLocation, props: true },
     { path: "/tides/station/:id", component: TidesByStation, props: true },
-    {
-      path: "/stations/location/:loc",
-      component: StationByLocation,
-      props: true,
-    },
-    { path: "/stations/id/:id", component: StationByStation, props: true },
-    { path: "/stations/all", component: StationsAll, props: true },
+    { path: "/station", component: StationChooser },
+    { path: "/station/:id", component: StationById, props: true },
+    { path: "/station/location/:loc", component: StationByLocation, props: true },
+    { path: "/station/list", component: StationList, props: true },
   ],
 })
 

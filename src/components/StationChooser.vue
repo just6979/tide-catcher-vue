@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue"
-import { DEFAULT_LOCATION, DEFAULT_STATION } from "../constants.ts"
+import { DEFAULT_LOCATION, DEFAULT_STATION } from "../lib/constants.ts"
 import { router } from "../main.ts"
 
 const station = ref("")
@@ -8,20 +8,20 @@ const location = ref("")
 const gpsLocation = ref("")
 
 function gotoStationByStation(id: string) {
-  router.push(`/stations/id/${id !== "" ? id : DEFAULT_STATION}`)
+  router.push(`/station/id/${id !== "" ? id : DEFAULT_STATION}`)
 }
 
 function gotoStationByLocation(location: string) {
-  router.push(`/stations/location/${location !== "" ? location : DEFAULT_LOCATION}`)
+  router.push(`/station/location/${location !== "" ? location : DEFAULT_LOCATION}`)
 }
 
 function gotoStationsAll() {
-  router.push("/stations/all")
+  router.push("/station/all")
 }
 </script>
 
 <template>
-  <div id="stations-chooser">
+  <div>
     <p>
       <strong> Choose your station: </strong>
     </p>
