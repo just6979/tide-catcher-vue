@@ -8,11 +8,19 @@ const location = ref("")
 const gpsLocation = ref("")
 
 function gotoTidesByStation(id: string) {
-  router.push(`/tides/station/id/${id !== "" ? id : DEFAULT_STATION}`)
+  router.push(`/tides/station/${id !== "" ? id : DEFAULT_STATION}`)
 }
 
 function gotoTidesByLocation(location: string) {
   router.push(`/tides/location/${location !== "" ? location : DEFAULT_LOCATION}`)
+}
+
+function gotoTidesByLocationOnEnter(event, location: string) {
+  if (event.key === "Enter") gotoTidesByLocation(location)
+}
+
+function gotoTidesByStationOnEnter(event, station: string) {
+  if (event.key === "Enter") gotoTidesByStation(station)
 }
 </script>
 
@@ -23,17 +31,17 @@ function gotoTidesByLocation(location: string) {
     </p>
     <p>
       &nbsp;Nearby
-      <input v-model="gpsLocation" placeholder="Pre-locating..." />
+      <input v-model="gpsLocation" placeholder="Pre-locating..." @keydown.enter="gotoTidesByLocation(gpsLocation)" />
       <button @click="gotoTidesByLocation(gpsLocation)">Go</button>
     </p>
     <p>
       Station
-      <input v-model="station" :placeholder="DEFAULT_STATION" />
+      <input v-model="station" :placeholder="DEFAULT_STATION" @keydown.enter="gotoTidesByStation(station)" />
       <button @click="gotoTidesByStation(station)">Go</button>
     </p>
     <p>
       &nbsp;Coords
-      <input v-model="location" :placeholder="DEFAULT_LOCATION" />
+      <input v-model="location" :placeholder="DEFAULT_LOCATION" @keydown.enter="gotoTidesByLocation(location)" />
       <button @click="gotoTidesByLocation(location)">Go</button>
     </p>
   </div>

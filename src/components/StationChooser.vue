@@ -27,17 +27,17 @@ function gotoStationsAll() {
     </p>
     <p>
       &nbsp;Nearby
-      <input v-model="gpsLocation" placeholder="Pre-locating..." />
+      <input v-model="gpsLocation" placeholder="Pre-locating..." @keydown.enter="gotoStationByLocation(gpsLocation)" />
       <button @click="gotoStationByLocation(gpsLocation)">Go</button>
     </p>
     <p>
       Station
-      <input v-model="station" :placeholder="DEFAULT_STATION" />
+      <input v-model="station" :placeholder="DEFAULT_STATION" @keydown.enter="gotoStationByStation(station)" />
       <button @click="gotoStationByStation(station)">Go</button>
     </p>
     <p>
       &nbsp;Coords
-      <input v-model="location" :placeholder="DEFAULT_LOCATION" />
+      <input v-model="location" :placeholder="DEFAULT_LOCATION" @keydown.enter="gotoStationByLocation(location)" />
       <button @click="gotoStationByLocation(location)">Go</button>
     </p>
     <p>
