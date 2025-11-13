@@ -8,7 +8,7 @@ const props = defineProps<{
 }>()
 
 const station = props.station
-const stationLoc = `${station.lat.toFixed(5)},${station.lon.toFixed(5)}`
+const stationLoc = `${station.lat.toFixed(3)},${station.lon.toFixed(3)}`
 </script>
 
 <template>

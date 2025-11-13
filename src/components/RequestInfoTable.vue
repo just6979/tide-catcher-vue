@@ -11,12 +11,12 @@ const { station, reqLocation = undefined } = defineProps<{
 const now = new Date().toLocaleString()
 let reqLoc: string
 if (reqLocation) {
-  reqLoc = `${reqLocation[0].toFixed(5)},${reqLocation[1].toFixed(5)}`
+  reqLoc = `${reqLocation[0].toFixed(3)},${reqLocation[1].toFixed(3)}`
 }
 
 let stationLoc: string
 if (station) {
-  stationLoc = `${station.lat.toFixed(5)},${station.lon.toFixed(5)}`
+  stationLoc = `${station.lat.toFixed(3)},${station.lon.toFixed(3)}`
 }
 </script>
 
