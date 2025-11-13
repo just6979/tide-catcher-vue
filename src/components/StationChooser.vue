@@ -23,12 +23,13 @@ function gotoStationsAll() {
 <template>
   <div>
     <p>
-      <strong> Choose your station: </strong>
+      <strong>Choose your station:</strong>
     </p>
     <p>
       &nbsp;Nearby
-      <input v-model="gpsLocation" placeholder="Pre-locating..." @keydown.enter="gotoStationByLocation(gpsLocation)" />
-      <button @click="gotoStationByLocation(gpsLocation)">Go</button>
+      <RouterLink to="/tides/location/gps">with GPS</RouterLink>
+      <!--      <input v-model="gpsLocation" placeholder="Pre-locating..." @keydown.enter="gotoStationByLocation(gpsLocation)" />-->
+      <!--      <button @click="gotoStationByLocation(gpsLocation)">Go</button>-->
     </p>
     <p>
       Station

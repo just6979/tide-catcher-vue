@@ -14,25 +14,18 @@ function gotoTidesByStation(id: string) {
 function gotoTidesByLocation(location: string) {
   router.push(`/tides/location/${location !== "" ? location : DEFAULT_LOCATION}`)
 }
-
-function gotoTidesByLocationOnEnter(event, location: string) {
-  if (event.key === "Enter") gotoTidesByLocation(location)
-}
-
-function gotoTidesByStationOnEnter(event, station: string) {
-  if (event.key === "Enter") gotoTidesByStation(station)
-}
 </script>
 
 <template>
   <div>
     <p>
-      <strong> Choose your tides: </strong>
+      <strong>Choose your tides:</strong>
     </p>
     <p>
       &nbsp;Nearby
-      <input v-model="gpsLocation" placeholder="Pre-locating..." @keydown.enter="gotoTidesByLocation(gpsLocation)" />
-      <button @click="gotoTidesByLocation(gpsLocation)">Go</button>
+      <RouterLink to="/tides/location/gps">with GPS</RouterLink>
+      <!--      <input v-model="gpsLocation" placeholder="Pre-locating..." @keydown.enter="gotoTidesByLocation(gpsLocation)" />-->
+      <!--      <button @click="gotoTidesByLocation(gpsLocation)">Go</button>-->
     </p>
     <p>
       Station
