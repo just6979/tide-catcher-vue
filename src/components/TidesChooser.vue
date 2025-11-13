@@ -8,7 +8,7 @@ const location = ref("")
 const gpsLocation = ref("")
 
 function gotoTidesByStation(id: string) {
-  router.push(`/tides/station/${id !== "" ? id : DEFAULT_STATION}`)
+  router.push(`/tides/id/${id !== "" ? id : DEFAULT_STATION}`)
 }
 
 function gotoTidesByLocation(location: string) {

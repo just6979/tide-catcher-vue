@@ -7,8 +7,8 @@ import StationById from "./components/StationById.vue"
 import StationByLocation from "./components/StationByLocation.vue"
 import StationChooser from "./components/StationChooser.vue"
 import StationList from "./components/StationList.vue"
+import TidesById from "./components/TidesById.vue"
 import TidesByLocation from "./components/TidesByLocation.vue"
-import TidesByStation from "./components/TidesByStation.vue"
 import TidesChooser from "./components/TidesChooser.vue"
 import { DEFAULT_LOCATION, DEFAULT_STATION } from "./lib/constants.ts"
 
@@ -18,6 +18,15 @@ export const router = createRouter({
     { path: "/", component: TidesChooser },
     { path: "/about", component: AboutPage },
     { path: "/tides", component: TidesChooser },
+    { path: "/station", component: StationChooser },
+    { path: "/station/list", component: StationList },
+    { path: "/tides/id/:id", component: TidesById, props: true },
+    {
+      path: "/tides/id/",
+      redirect: () => {
+        return { path: `/tides/id/${DEFAULT_STATION}` }
+      },
+    },
     { path: "/tides/location/:loc", component: TidesByLocation, props: true },
     {
       path: "/tides/location/",
@@ -25,14 +34,6 @@ export const router = createRouter({
         return { path: `/tides/location/${DEFAULT_LOCATION}` }
       },
     },
-    { path: "/tides/station/:id", component: TidesByStation, props: true },
-    {
-      path: "/tides/station/",
-      redirect: () => {
-        return { path: `/tides/station/${DEFAULT_STATION}` }
-      },
-    },
-    { path: "/station", component: StationChooser },
     { path: "/station/id/:id", component: StationById, props: true },
     {
       path: "/station/id/",
@@ -47,7 +48,6 @@ export const router = createRouter({
         return { path: `/station/location/${DEFAULT_LOCATION}` }
       },
     },
-    { path: "/station/list", component: StationList, props: true },
   ],
 })
 

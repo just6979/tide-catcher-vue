@@ -32,7 +32,7 @@ const stationLoc = `${station.lat.toFixed(5)},${station.lon.toFixed(5)}`
         </td>
         <td>
           <RouterLink :to="`/station/id/${station.stationId}`">{{ station.stationId }}</RouterLink>
-          (<RouterLink :to="`/tides/station/${station.stationId}`">Tides</RouterLink>)
+          (<RouterLink :to="`/tides/id/${station.stationId}`">Tides</RouterLink>)
         </td>
       </tr>
       <tr>

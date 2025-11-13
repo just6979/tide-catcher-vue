@@ -3,11 +3,11 @@ import { ref } from "vue"
 import { DEFAULT_LOCATION, DEFAULT_STATION } from "../lib/constants.ts"
 import { router } from "../main.ts"
 
-const station = ref("")
+const id = ref("")
 const location = ref("")
 const gpsLocation = ref("")
 
-function gotoStationByStation(id: string) {
+function gotoStationById(id: string) {
   router.push(`/station/id/${id !== "" ? id : DEFAULT_STATION}`)
 }
 
@@ -33,8 +33,8 @@ function gotoStationsAll() {
     </p>
     <p>
       Station
-      <input v-model="station" :placeholder="DEFAULT_STATION" @keydown.enter="gotoStationByStation(station)" />
-      <button @click="gotoStationByStation(station)">Go</button>
+      <input v-model="id" :placeholder="DEFAULT_STATION" @keydown.enter="gotoStationById(id)" />
+      <button @click="gotoStationById(id)">Go</button>
     </p>
     <p>
       &nbsp;Coords

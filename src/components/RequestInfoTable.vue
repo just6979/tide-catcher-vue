@@ -51,7 +51,7 @@ if (station) {
           </a>
         </td>
         <td>
-          <RouterLink :to="`/tides/station/${station.stationId}`">
+          <RouterLink :to="`/tides/id/${station.stationId}`">
             {{ station.stationId }}
           </RouterLink>
           (<RouterLink :to="`/station/id/${station.stationId}`">Details</RouterLink>)
