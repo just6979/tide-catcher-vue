@@ -8,7 +8,7 @@ const location = ref("")
 const gpsLocation = ref("")
 
 function gotoStationByStation(id: string) {
-  router.push(`/station/${id !== "" ? id : DEFAULT_STATION}`)
+  router.push(`/station/id/${id !== "" ? id : DEFAULT_STATION}`)
 }
 
 function gotoStationByLocation(location: string) {
@@ -16,7 +16,7 @@ function gotoStationByLocation(location: string) {
 }
 
 function gotoStationsAll() {
-  router.push("/station/all")
+  router.push("/station/list")
 }
 </script>
 

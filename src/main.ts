@@ -20,7 +20,7 @@ export const router = createRouter({
     { path: "/tides/location/:loc", component: TidesByLocation, props: true },
     { path: "/tides/station/:id", component: TidesByStation, props: true },
     { path: "/station", component: StationChooser },
-    { path: "/station/:id", component: StationById, props: true },
+    { path: "/station/id/:id", component: StationById, props: true },
     { path: "/station/location/:loc", component: StationByLocation, props: true },
     { path: "/station/list", component: StationList, props: true },
   ],

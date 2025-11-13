@@ -14,7 +14,7 @@ const location = ref<[number, number]>()
 const station = ref<NoaaTidePredStation>()
 const tides = ref<NoaaTidePrediction[]>()
 
-const locationParam = route.params.location?.toString() || DEFAULT_LOCATION
+const locationParam = route.params.loc?.toString() || DEFAULT_LOCATION
 
 // get the location from params
 const locationSplit = locationParam.split(",")
