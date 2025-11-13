@@ -43,7 +43,7 @@ watch(station, () => {
     <StationTable :station="station" />
   </div>
   <div v-else>
-    <p>No Station found for ID {{ route.params.id }}</p>
+    <p>No Station found for {{ location }}.</p>
   </div>
 </template>
 

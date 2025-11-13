@@ -54,7 +54,7 @@ watch(tides, () => {
       <TidesTable :station="station" :tides="tides" />
     </template>
     <div v-else>
-      <p>No Tides found for {{ station?.stationId }}.</p>
+      <p>No Tides found for {{ location }}.</p>
     </div>
   </template>
   <div v-else>
