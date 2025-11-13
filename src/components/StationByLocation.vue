@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from "vue"
+import { ref, watch } from "vue"
 import { useRoute } from "vue-router"
 import { DEFAULT_LOCATION } from "../lib/constants.ts"
 import { fetchTidePredStation } from "../lib/stations.ts"
@@ -25,8 +25,11 @@ console.log()
 // uses the location ref to get the station details from the TidePredStations API
 if (location.value) {
   fetchTidePredStation(location.value, error, station)
-  loading.value = false
 }
+
+watch(station, () => {
+  loading.value = false
+})
 </script>
 
 <template>

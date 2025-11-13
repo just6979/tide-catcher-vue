@@ -34,8 +34,11 @@ watch(station, (newStation) => {
   if (newStation) {
     fetchTides(newStation, error, tides)
     console.log(tides.value)
-    loading.value = false
   }
+})
+
+watch(tides, () => {
+  loading.value = false
 })
 </script>
 

@@ -30,8 +30,11 @@ watch(location, (newLocation) => {
 watch(station, (newStation) => {
   if (newStation) {
     fetchTides(newStation, error, tides)
-    loading.value = false
   }
+})
+
+watch(tides, () => {
+  loading.value = false
 })
 </script>
 
@@ -56,5 +59,4 @@ watch(station, (newStation) => {
 </template>
 
 <!--suppress CssUnusedSymbol-->
-<style scoped>
-</style>
+<style scoped></style>

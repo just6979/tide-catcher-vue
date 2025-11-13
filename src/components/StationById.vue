@@ -19,8 +19,11 @@ fetchCoOpsStation(route.params.id?.toString() || DEFAULT_STATION, location, erro
 watch(location, (newLocation) => {
   if (newLocation) {
     fetchTidePredStation(newLocation, error, station)
-    loading.value = false
   }
+})
+
+watch(station, () => {
+  loading.value = false
 })
 </script>
 
