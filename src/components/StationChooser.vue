@@ -1,11 +1,14 @@
 <script setup lang="ts">
 import { ref } from "vue"
 import { DEFAULT_LOCATION, DEFAULT_STATION } from "../lib/constants.ts"
+import { prelocate } from "../lib/geolocation.ts"
 import { router } from "../main.ts"
 
 const id = ref("")
 const location = ref("")
 const gpsLocation = ref("")
+
+prelocate(gpsLocation)
 
 function gotoStationById(id: string) {
   router.push(`/station/id/${id !== "" ? id : DEFAULT_STATION}`)
@@ -27,9 +30,8 @@ function gotoStationsAll() {
     </p>
     <p>
       &nbsp;Nearby
-      <RouterLink to="/tides/location/gps">with GPS</RouterLink>
-      <!--      <input v-model="gpsLocation" placeholder="Pre-locating..." @keydown.enter="gotoStationByLocation(gpsLocation)" />-->
-      <!--      <button @click="gotoStationByLocation(gpsLocation)">Go</button>-->
+      <input :placeholder="gpsLocation" @keydown.enter="gotoStationByLocation(gpsLocation)" />
+      <button @click="gotoStationByLocation(gpsLocation)">Go</button>
     </p>
     <p>
       Station
