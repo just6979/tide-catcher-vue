@@ -2,13 +2,13 @@
 import { WEEKDAYS } from "../lib/constants.ts"
 import type { NoaaTidePrediction } from "../lib/types.ts"
 
-const props = defineProps<{
+const { tide } = defineProps<{
   tide: NoaaTidePrediction
 }>()
 
 const nowDate = new Date()
-const tideDate = new Date(props.tide.t)
-const tideType = props.tide.type === "H" ? "high" : "low"
+const tideDate = new Date(tide.t)
+const tideType = tide.type === "H" ? "high" : "low"
 
 const arrow: string = tideType === "high" ? "⤴" : "⤵"
 const prior = tideDate < nowDate ? "prior" : "future"

@@ -2,13 +2,10 @@
 import type { NoaaTidePrediction, NoaaTidePredStation } from "../lib/types.ts"
 import TidesRow from "./TidesRow.vue"
 
-const props = defineProps<{
+const { station, tides } = defineProps<{
   station: NoaaTidePredStation
   tides: NoaaTidePrediction[]
 }>()
-
-const station = props.station
-const tides = props.tides
 </script>
 
 <template>

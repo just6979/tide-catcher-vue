@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { ref, watch } from "vue"
-import { useRoute } from "vue-router"
-import { DEFAULT_LOCATION, GEOLOCATION_ERRORS, GEOLOCATION_OPTIONS } from "../lib/constants.ts"
+import { GEOLOCATION_ERRORS, GEOLOCATION_OPTIONS } from "../lib/constants.ts"
 import { fetchTidePredStation } from "../lib/stations.ts"
 import type { NoaaTidePredStation } from "../lib/types.ts"
 import StationTable from "./StationTable.vue"
 
-const route = useRoute()
+const { loc } = defineProps<{ loc: string }>()
+
 const loading = ref(true)
 const error = ref<string>()
 const locating = ref(false)
@@ -14,9 +14,7 @@ const location = ref<[number, number]>()
 const station = ref<NoaaTidePredStation>()
 
 function main() {
-  const locationParam = route.params.loc?.toString() || DEFAULT_LOCATION
-
-  if (locationParam === "gps") {
+  if (loc === "gps") {
     // get the location from geolocation
     locating.value = true
     console.log("Geolocating...")
@@ -37,7 +35,7 @@ function main() {
     )
   } else {
     // get the location from params
-    const locationSplit = locationParam.split(",")
+    const locationSplit = loc.split(",")
     if (locationSplit.length >= 2) {
       location.value = [Number(locationSplit[0]), Number(locationSplit[1])]
     } else {

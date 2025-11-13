@@ -3,20 +3,20 @@ import { faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome"
 import type { NoaaTidePredStation } from "../lib/types.ts"
 
-const props = defineProps<{
+const { station, reqLocation = undefined } = defineProps<{
   station: NoaaTidePredStation
   reqLocation?: [number, number]
 }>()
 
 const now = new Date().toLocaleString()
 let reqLoc: string
-if (props.reqLocation) {
-  reqLoc = `${props.reqLocation[0].toFixed(5)},${props.reqLocation[1].toFixed(5)}`
+if (reqLocation) {
+  reqLoc = `${reqLocation[0].toFixed(5)},${reqLocation[1].toFixed(5)}`
 }
 
 let stationLoc: string
-if (props.station) {
-  stationLoc = `${props.station.lat.toFixed(5)},${props.station.lon.toFixed(5)}`
+if (station) {
+  stationLoc = `${station.lat.toFixed(5)},${station.lon.toFixed(5)}`
 }
 </script>
 

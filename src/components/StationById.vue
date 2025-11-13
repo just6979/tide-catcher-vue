@@ -1,19 +1,18 @@
 <script setup lang="ts">
 import { ref, watch } from "vue"
-import { useRoute } from "vue-router"
-import { DEFAULT_STATION } from "../lib/constants.ts"
 import { fetchCoOpsStation, fetchTidePredStation } from "../lib/stations.ts"
 import type { NoaaTidePredStation } from "../lib/types.ts"
 import StationTable from "./StationTable.vue"
 
-const route = useRoute()
+const { id } = defineProps<{ id: string }>()
+
 const loading = ref(true)
 const error = ref<string>()
 const location = ref<[number, number]>()
 const station = ref<NoaaTidePredStation>()
 
 // fill in the location ref using the NOAA CO-OPS API
-fetchCoOpsStation(route.params.id?.toString() || DEFAULT_STATION, location, error)
+fetchCoOpsStation(id, location, error)
 
 // uses the location ref to get the station details from the TidePredStations API
 watch(location, (newLocation) => {
@@ -39,7 +38,7 @@ watch(station, () => {
       <StationTable :station="station" />
     </div>
     <div v-else>
-      <p>No Station found for ID {{ route.params.id }}</p>
+      <p>No Station found for ID {{ id }}</p>
     </div>
   </div>
 </template>
