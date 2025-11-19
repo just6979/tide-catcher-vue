@@ -1,8 +1,12 @@
 import vue from "@vitejs/plugin-vue"
-import { defineConfig } from "vite"
+import TurboConsole from "unplugin-turbo-console/vite"
+import {defineConfig} from "vite"
 
 export default defineConfig({
-  plugins: [vue()],
+  plugins: [
+    vue(),
+    TurboConsole()
+  ],
   base: process.env.BASE_PATH || "/",
   server: {
     port: 3000,
