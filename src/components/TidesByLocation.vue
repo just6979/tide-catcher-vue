@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { ref, watch } from "vue"
-import { GEOLOCATION_ERRORS, GEOLOCATION_OPTIONS } from "../lib/constants.ts"
-import { fetchTidePredStation } from "../lib/stations.ts"
-import { fetchTides } from "../lib/tides.ts"
-import type { NoaaTidePrediction, NoaaTidePredStation } from "../lib/types.ts"
+import {ref, watch} from "vue"
+import {GEOLOCATION_ERRORS, GEOLOCATION_OPTIONS} from "../lib/constants.ts"
+import {fetchTidePredStation} from "../lib/stations.ts"
+import {fetchTides} from "../lib/tides.ts"
+import type {NoaaTidePrediction, NoaaTidePredStation} from "../lib/types.ts"
 import RequestInfoTable from "./RequestInfoTable.vue"
 import TidesTable from "./TidesTable.vue"
 
@@ -39,7 +39,6 @@ function main() {
   } else {
     // get the location from params
     const locationSplit = loc.split(",")
-    console.log(locationSplit)
     if (locationSplit.length >= 2) {
       location.value = [Number(locationSplit[0]), Number(locationSplit[1])]
     } else {
