@@ -1,14 +1,10 @@
 <script setup lang="ts">
 import { ref } from "vue"
 import { DEFAULT_LOCATION, DEFAULT_STATION } from "../lib/constants.ts"
-import { prelocate } from "../lib/geolocation.ts"
 import { router } from "../main.ts"
 
 const id = ref("")
 const location = ref("")
-const gpsLocation = ref("")
-
-prelocate(gpsLocation)
 
 function gotoStationById(id: string) {
   router.push(`/station/id/${id !== "" ? id : DEFAULT_STATION}`)
@@ -29,9 +25,7 @@ function gotoStationsAll() {
       <strong>Choose your station:</strong>
     </p>
     <p>
-      &nbsp;Nearby
-      <input :placeholder="gpsLocation" @keydown.enter="gotoStationByLocation(gpsLocation)" />
-      <button @click="gotoStationByLocation(gpsLocation)">Go</button>
+      <button @click="gotoStationByLocation('gps')">Nearby</button>
     </p>
     <p>
       Station

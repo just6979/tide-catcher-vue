@@ -1,23 +1,6 @@
 import type { Ref } from "vue"
 import { GEOLOCATION_ERRORS, GEOLOCATION_OPTIONS } from "./constants.ts"
 
-export function prelocate(location: Ref<string>) {
-  navigator.permissions
-    .query({ name: "geolocation" })
-    .then((perm) => {
-      if (perm.state === "granted") {
-        location.value = "Pre-locating..."
-        geolocate(location)
-      } else if (perm.state === "prompt") {
-        location.value = "Can't pre-locate. Hit Go!"
-      }
-    })
-    .catch((reason) => {
-      location.value = "GPS not supported."
-      console.log(reason)
-    })
-}
-
 export function geolocate(location: Ref<string>) {
   console.log("Geolocating...")
   navigator.geolocation.getCurrentPosition(

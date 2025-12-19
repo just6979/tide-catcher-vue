@@ -1,14 +1,10 @@
 <script setup lang="ts">
 import { ref } from "vue"
 import { DEFAULT_LOCATION, DEFAULT_STATION } from "../lib/constants.ts"
-import { prelocate } from "../lib/geolocation.ts"
 import { router } from "../main.ts"
 
-const gpsLocation = ref("")
 const location = ref("")
 const station = ref("")
-
-prelocate(gpsLocation)
 
 function gotoTidesById(id: string) {
   router.push(`/tides/id/${id !== "" ? id : DEFAULT_STATION}`)
@@ -25,9 +21,7 @@ function gotoTidesByLocation(location: string) {
       <strong>Choose your tides:</strong>
     </p>
     <p>
-      &nbsp;Nearby
-      <input readonly :placeholder="gpsLocation" @keydown.enter="gotoTidesByLocation(gpsLocation)" />
-      <button @click="gotoTidesByLocation(gpsLocation)">Go</button>
+      <button @click="gotoTidesByLocation('gps')">Nearby</button>
     </p>
     <p>
       Station
